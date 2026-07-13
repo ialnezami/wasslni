@@ -118,7 +118,29 @@
     "vehicles": "My vehicles",
     "publishedRides": "Published rides",
     "noRides": "You haven't published any rides yet",
-    "createFirst": "Publish your first ride"
+    "createFirst": "Publish your first ride",
+    "vehicleBrand": "Brand",
+    "vehicleModel": "Model",
+    "vehicleYear": "Year",
+    "vehicleColor": "Color",
+    "vehicleSeats": "Seats",
+    "vehiclePlate": "Plate number",
+    "noVehicles": "No vehicles added yet",
+    "addVehicle": "Add vehicle",
+    "selectVehicle": "Select a vehicle"
+  },
+  "admin": {
+    "dashboard": "Admin dashboard",
+    "users": "Users",
+    "totalUsers": "Total users",
+    "totalDrivers": "Total drivers",
+    "totalPassengers": "Total passengers",
+    "totalRides": "Total rides",
+    "totalBookings": "Total bookings",
+    "totalReports": "Total reports",
+    "banned": "Banned",
+    "banUser": "Ban user",
+    "unbanUser": "Unban user"
   },
   "common": {
     "loading": "Loading...",
@@ -126,6 +148,8 @@
     "back": "Back",
     "save": "Save",
     "cancel": "Cancel",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete?",
     "viewAll": "View all",
     "perSeat": "per seat"
   },

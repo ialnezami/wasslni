@@ -23,6 +23,8 @@ import { MyRidesPage } from '@/pages/driver/MyRidesPage';
 import { CreateRidePage } from '@/pages/driver/CreateRidePage';
 import { DriverBookingsPage } from '@/pages/driver/DriverBookingsPage';
 import { VehiclesPage } from '@/pages/driver/VehiclesPage';
+import { AdminDashboardPage } from '@/pages/admin/AdminDashboardPage';
+import { UsersPage } from '@/pages/admin/UsersPage';
 import { PlaceholderPage } from '@/pages/PlaceholderPage';
 
 export function AppRoutes() {
@@ -65,8 +67,8 @@ export function AppRoutes() {
 
         <Route element={<ProtectedRoute allowedRoles={[UserRole.Admin]} />}>
           <Route path="admin" element={<AdminLayout />}>
-            <Route index element={<PlaceholderPage title="Admin Dashboard" />} />
-            <Route path="users" element={<PlaceholderPage title="Users" />} />
+            <Route index element={<AdminDashboardPage />} />
+            <Route path="users" element={<UsersPage />} />
             <Route path="cities" element={<PlaceholderPage title="Cities" />} />
             <Route path="trips" element={<PlaceholderPage title="Trips" />} />
             <Route path="reports" element={<PlaceholderPage title="Reports" />} />

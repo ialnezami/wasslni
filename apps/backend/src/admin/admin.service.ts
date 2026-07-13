@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserRole } from '@wasslni/shared-types';
@@ -27,5 +27,29 @@ export class AdminService {
       this.reportModel.countDocuments(active),
     ]);
     return { users, drivers, passengers, rides, bookings, reports };
+  }
+
+  async getUsers(): Promise<User[]> {
+    return this.userModel
+      .find({ deletedAt: null })
+      .select('-passwordHash -refreshTokenHash')
+      .sort({ createdAt: -1 })
+      .lean();
+  }
+
+  async toggleBan(id: string, ban: boolean): Promise<{ _id: unknown; isBanned: boolean }> {
+    const user = await this.userModel.findOne({ _id: id, deletedAt: null });
+    if (!user) throw new NotFoundException('User not found');
+    if (user.role === UserRole.Admin) throw new ForbiddenException('Cannot ban an admin account');
+    user.isBanned = ban;
+    await user.save();
+    return { _id: user._id, isBanned: user.isBanned };
+  }
+
+  async softDeleteUser(id: string): Promise<void> {
+    const user = await this.userModel.findOne({ _id: id, deletedAt: null });
+    if (!user) throw new NotFoundException('User not found');
+    if (user.role === UserRole.Admin) throw new ForbiddenException('Cannot delete an admin account');
+    await this.userModel.updateOne({ _id: id }, { deletedAt: new Date() });
   }
 }

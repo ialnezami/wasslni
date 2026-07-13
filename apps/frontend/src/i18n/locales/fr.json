@@ -118,7 +118,29 @@
     "vehicles": "Mes véhicules",
     "publishedRides": "Trajets publiés",
     "noRides": "Aucun trajet publié",
-    "createFirst": "Publiez votre premier trajet"
+    "createFirst": "Publiez votre premier trajet",
+    "vehicleBrand": "Marque",
+    "vehicleModel": "Modèle",
+    "vehicleYear": "Année",
+    "vehicleColor": "Couleur",
+    "vehicleSeats": "Places",
+    "vehiclePlate": "Plaque d'immatriculation",
+    "noVehicles": "Aucun véhicule ajouté",
+    "addVehicle": "Ajouter un véhicule",
+    "selectVehicle": "Choisir un véhicule"
+  },
+  "admin": {
+    "dashboard": "Tableau de bord admin",
+    "users": "Utilisateurs",
+    "totalUsers": "Total utilisateurs",
+    "totalDrivers": "Total conducteurs",
+    "totalPassengers": "Total passagers",
+    "totalRides": "Total trajets",
+    "totalBookings": "Total réservations",
+    "totalReports": "Total signalements",
+    "banned": "Banni",
+    "banUser": "Bannir",
+    "unbanUser": "Débannir"
   },
   "common": {
     "loading": "Chargement...",
@@ -126,6 +148,8 @@
     "back": "Retour",
     "save": "Enregistrer",
     "cancel": "Annuler",
+    "delete": "Supprimer",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer ?",
     "viewAll": "Voir tout",
     "perSeat": "par place"
   },

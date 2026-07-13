@@ -118,7 +118,29 @@
     "vehicles": "مركباتي",
     "publishedRides": "رحلات منشورة",
     "noRides": "لم تنشر أي رحلة بعد",
-    "createFirst": "انشر رحلتك الأولى"
+    "createFirst": "انشر رحلتك الأولى",
+    "vehicleBrand": "الماركة",
+    "vehicleModel": "الموديل",
+    "vehicleYear": "سنة الصنع",
+    "vehicleColor": "اللون",
+    "vehicleSeats": "عدد المقاعد",
+    "vehiclePlate": "رقم اللوحة",
+    "noVehicles": "لم تضف أي مركبة بعد",
+    "addVehicle": "إضافة مركبة",
+    "selectVehicle": "اختر مركبة"
+  },
+  "admin": {
+    "dashboard": "لوحة الإدارة",
+    "users": "المستخدمون",
+    "totalUsers": "إجمالي المستخدمين",
+    "totalDrivers": "إجمالي السائقين",
+    "totalPassengers": "إجمالي المسافرين",
+    "totalRides": "إجمالي الرحلات",
+    "totalBookings": "إجمالي الحجوزات",
+    "totalReports": "إجمالي البلاغات",
+    "banned": "محظور",
+    "banUser": "حظر المستخدم",
+    "unbanUser": "رفع الحظر"
   },
   "common": {
     "loading": "جاري التحميل...",
@@ -126,6 +148,8 @@
     "back": "رجوع",
     "save": "حفظ",
     "cancel": "إلغاء",
+    "delete": "حذف",
+    "confirmDelete": "هل أنت متأكد من الحذف؟",
     "viewAll": "عرض الكل",
     "perSeat": "للمقعد"
   },
