@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+.next/
+out/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Test / coverage
+coverage/
+.nyc_output/
+
+# Local Claude settings
+.claude/settings.local.json
