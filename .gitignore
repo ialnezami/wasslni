@@ -1,20 +1,13 @@
-# Dependencies
 node_modules/
-
-# Build output
 dist/
 build/
-.next/
-out/
-
-# Environment & secrets
+.turbo/
+*.log
 .env
 .env.*
 !.env.example
-
-# Logs
-*.log
-npm-debug.log*
+apps/backend/.env
+apps/frontend/.env
 
 # OS
 .DS_Store
