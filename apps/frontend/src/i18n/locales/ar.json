@@ -1,0 +1,136 @@
+{
+  "app": {
+    "name": "وصلني",
+    "tagline": "شارك رحلتك بين المدن بسهولة وأمان"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "search": "بحث",
+    "login": "دخول",
+    "register": "حساب جديد",
+    "dashboard": "حسابي",
+    "logout": "خروج",
+    "about": "من نحن",
+    "contact": "اتصل بنا"
+  },
+  "home": {
+    "title": "سافر بين المدن بذكاء",
+    "subtitle": "ابحث عن رحلات مشتركة بأسعار مناسبة مع سائقين موثوقين",
+    "searchCta": "ابحث عن رحلة",
+    "howItWorks": "كيف يعمل؟",
+    "step1Title": "ابحث",
+    "step1Desc": "اختر مدينة الانطلاق والوصول والتاريخ",
+    "step2Title": "احجز",
+    "step2Desc": "اطلب مقعداً وانتظر موافقة السائق",
+    "step3Title": "سافر",
+    "step3Desc": "التقِ بالسائق وانطلق براحة",
+    "popularRoutes": "مسارات شائعة",
+    "driverCta": "هل أنت سائق؟",
+    "driverCtaDesc": "انشر رحلاتك وشارك تكاليف السفر",
+    "driverCtaButton": "ابدأ كسائق"
+  },
+  "search": {
+    "title": "نتائج البحث",
+    "subtitle": "اختر الرحلة المناسبة لك",
+    "formTitle": "أين تريد الذهاب؟",
+    "from": "من",
+    "to": "إلى",
+    "date": "التاريخ",
+    "selectCity": "اختر مدينة",
+    "submit": "بحث",
+    "results": "{{count}} رحلة متاحة",
+    "noResults": "لا توجد رحلات لهذا المسار",
+    "noResultsHint": "جرّب تاريخاً آخر أو مدناً مختلفة",
+    "swapCities": "تبديل"
+  },
+  "ride": {
+    "details": "تفاصيل الرحلة",
+    "departure": "نقطة الانطلاق",
+    "destination": "نقطة الوصول",
+    "date": "التاريخ",
+    "time": "وقت الانطلاق",
+    "price": "السعر للمقعد",
+    "seats": "المقاعد",
+    "seatsAvailable": "مقاعد متاحة",
+    "driver": "السائق",
+    "description": "ملاحظات",
+    "book": "احجز مقعداً",
+    "bookSeats": "عدد المقاعد",
+    "loginToBook": "سجّل الدخول للحجز",
+    "bookingSuccess": "تم إرسال طلب الحجز! بانتظار موافقة السائق.",
+    "viewDetails": "عرض التفاصيل",
+    "notFound": "الرحلة غير موجودة",
+    "status": {
+      "scheduled": "مجدولة",
+      "full": "مكتملة",
+      "completed": "منتهية",
+      "cancelled": "ملغاة"
+    }
+  },
+  "auth": {
+    "loginTitle": "مرحباً بعودتك",
+    "loginSubtitle": "سجّل الدخول لمتابعة حجوزاتك",
+    "registerTitle": "إنشاء حساب",
+    "registerSubtitle": "انضم إلى وصلني في دقائق",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "fullName": "الاسم الكامل",
+    "phone": "رقم الهاتف",
+    "role": "نوع الحساب",
+    "rolePassenger": "مسافر",
+    "roleDriver": "سائق",
+    "loginButton": "دخول",
+    "registerButton": "إنشاء حساب",
+    "noAccount": "ليس لديك حساب؟",
+    "hasAccount": "لديك حساب بالفعل؟",
+    "demoHint": "للتجربة: passenger@demo.com أو driver@demo.com — كلمة المرور: demo1234",
+    "invalidCredentials": "البريد أو كلمة المرور غير صحيحة"
+  },
+  "booking": {
+    "title": "حجوزاتي",
+    "empty": "لا توجد حجوزات بعد",
+    "emptyHint": "ابحث عن رحلة واحجز مقعدك الأول",
+    "status": {
+      "Pending": "بانتظار الموافقة",
+      "Accepted": "مؤكد",
+      "Rejected": "مرفوض",
+      "Cancelled": "ملغى"
+    },
+    "cancel": "إلغاء الحجز",
+    "seats": "{{count}} مقعد/مقاعد"
+  },
+  "passenger": {
+    "dashboardTitle": "مرحباً، {{name}}",
+    "dashboardSubtitle": "إليك ملخص نشاطك",
+    "upcomingBookings": "حجوزات قادمة",
+    "quickSearch": "بحث سريع",
+    "profileTitle": "الملف الشخصي",
+    "notificationsTitle": "الإشعارات",
+    "notificationsEmpty": "لا توجد إشعارات جديدة",
+    "reviewsTitle": "تقييماتي"
+  },
+  "driver": {
+    "dashboardTitle": "لوحة السائق",
+    "dashboardSubtitle": "أدر رحلاتك وطلبات الحجز",
+    "myRides": "رحلاتي",
+    "createRide": "نشر رحلة جديدة",
+    "bookingRequests": "طلبات الحجز",
+    "vehicles": "مركباتي",
+    "publishedRides": "رحلات منشورة",
+    "noRides": "لم تنشر أي رحلة بعد",
+    "createFirst": "انشر رحلتك الأولى"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "back": "رجوع",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "viewAll": "عرض الكل",
+    "perSeat": "للمقعد"
+  },
+  "footer": {
+    "rights": "جميع الحقوق محفوظة",
+    "tagline": "منصة المشاركة في الرحلات للعالم العربي"
+  }
+}

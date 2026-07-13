@@ -1,0 +1,136 @@
+{
+  "app": {
+    "name": "Wasslni",
+    "tagline": "Partagez vos trajets inter-villes facilement"
+  },
+  "nav": {
+    "home": "Accueil",
+    "search": "Rechercher",
+    "login": "Connexion",
+    "register": "Inscription",
+    "dashboard": "Mon compte",
+    "logout": "Déconnexion",
+    "about": "À propos",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "Voyagez malin entre les villes",
+    "subtitle": "Trouvez des trajets partagés à prix abordable",
+    "searchCta": "Trouver un trajet",
+    "howItWorks": "Comment ça marche",
+    "step1Title": "Rechercher",
+    "step1Desc": "Choisissez départ, destination et date",
+    "step2Title": "Réserver",
+    "step2Desc": "Demandez une place et attendez l'approbation",
+    "step3Title": "Partir",
+    "step3Desc": "Retrouvez le conducteur et profitez du trajet",
+    "popularRoutes": "Trajets populaires",
+    "driverCta": "Vous êtes conducteur ?",
+    "driverCtaDesc": "Publiez vos trajets et partagez les frais",
+    "driverCtaButton": "Commencer comme conducteur"
+  },
+  "search": {
+    "title": "Résultats",
+    "subtitle": "Choisissez le trajet qui vous convient",
+    "formTitle": "Où voulez-vous aller ?",
+    "from": "De",
+    "to": "À",
+    "date": "Date",
+    "selectCity": "Choisir une ville",
+    "submit": "Rechercher",
+    "results": "{{count}} trajets disponibles",
+    "noResults": "Aucun trajet pour cet itinéraire",
+    "noResultsHint": "Essayez une autre date ou d'autres villes",
+    "swapCities": "Inverser"
+  },
+  "ride": {
+    "details": "Détails du trajet",
+    "departure": "Point de départ",
+    "destination": "Point d'arrivée",
+    "date": "Date",
+    "time": "Heure de départ",
+    "price": "Prix par place",
+    "seats": "Places",
+    "seatsAvailable": "places disponibles",
+    "driver": "Conducteur",
+    "description": "Notes",
+    "book": "Réserver une place",
+    "bookSeats": "Nombre de places",
+    "loginToBook": "Connectez-vous pour réserver",
+    "bookingSuccess": "Demande envoyée ! En attente d'approbation.",
+    "viewDetails": "Voir détails",
+    "notFound": "Trajet introuvable",
+    "status": {
+      "scheduled": "Programmé",
+      "full": "Complet",
+      "completed": "Terminé",
+      "cancelled": "Annulé"
+    }
+  },
+  "auth": {
+    "loginTitle": "Bon retour",
+    "loginSubtitle": "Connectez-vous pour gérer vos réservations",
+    "registerTitle": "Créer un compte",
+    "registerSubtitle": "Rejoignez Wasslni en quelques minutes",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "fullName": "Nom complet",
+    "phone": "Téléphone",
+    "role": "Type de compte",
+    "rolePassenger": "Passager",
+    "roleDriver": "Conducteur",
+    "loginButton": "Connexion",
+    "registerButton": "Créer un compte",
+    "noAccount": "Pas de compte ?",
+    "hasAccount": "Déjà un compte ?",
+    "demoHint": "Démo : passenger@demo.com ou driver@demo.com — mot de passe : demo1234",
+    "invalidCredentials": "E-mail ou mot de passe incorrect"
+  },
+  "booking": {
+    "title": "Mes réservations",
+    "empty": "Aucune réservation",
+    "emptyHint": "Recherchez un trajet et réservez votre première place",
+    "status": {
+      "Pending": "En attente",
+      "Accepted": "Confirmé",
+      "Rejected": "Refusé",
+      "Cancelled": "Annulé"
+    },
+    "cancel": "Annuler",
+    "seats": "{{count}} place(s)"
+  },
+  "passenger": {
+    "dashboardTitle": "Bonjour, {{name}}",
+    "dashboardSubtitle": "Voici votre activité",
+    "upcomingBookings": "Réservations à venir",
+    "quickSearch": "Recherche rapide",
+    "profileTitle": "Profil",
+    "notificationsTitle": "Notifications",
+    "notificationsEmpty": "Aucune notification",
+    "reviewsTitle": "Mes avis"
+  },
+  "driver": {
+    "dashboardTitle": "Espace conducteur",
+    "dashboardSubtitle": "Gérez vos trajets et demandes",
+    "myRides": "Mes trajets",
+    "createRide": "Publier un trajet",
+    "bookingRequests": "Demandes de réservation",
+    "vehicles": "Mes véhicules",
+    "publishedRides": "Trajets publiés",
+    "noRides": "Aucun trajet publié",
+    "createFirst": "Publiez votre premier trajet"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "back": "Retour",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "viewAll": "Voir tout",
+    "perSeat": "par place"
+  },
+  "footer": {
+    "rights": "Tous droits réservés",
+    "tagline": "Plateforme de covoiturage pour le monde arabe"
+  }
+}

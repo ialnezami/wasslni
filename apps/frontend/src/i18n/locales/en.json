@@ -1,0 +1,136 @@
+{
+  "app": {
+    "name": "Wasslni",
+    "tagline": "Share your intercity rides easily and safely"
+  },
+  "nav": {
+    "home": "Home",
+    "search": "Search",
+    "login": "Login",
+    "register": "Sign up",
+    "dashboard": "My account",
+    "logout": "Logout",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "Travel smarter between cities",
+    "subtitle": "Find affordable shared rides with trusted drivers",
+    "searchCta": "Find a ride",
+    "howItWorks": "How it works",
+    "step1Title": "Search",
+    "step1Desc": "Pick departure, destination and date",
+    "step2Title": "Book",
+    "step2Desc": "Request a seat and wait for driver approval",
+    "step3Title": "Go",
+    "step3Desc": "Meet your driver and enjoy the ride",
+    "popularRoutes": "Popular routes",
+    "driverCta": "Are you a driver?",
+    "driverCtaDesc": "Publish trips and share travel costs",
+    "driverCtaButton": "Start as driver"
+  },
+  "search": {
+    "title": "Search results",
+    "subtitle": "Choose the ride that fits you",
+    "formTitle": "Where do you want to go?",
+    "from": "From",
+    "to": "To",
+    "date": "Date",
+    "selectCity": "Select a city",
+    "submit": "Search",
+    "results": "{{count}} rides available",
+    "noResults": "No rides for this route",
+    "noResultsHint": "Try another date or different cities",
+    "swapCities": "Swap"
+  },
+  "ride": {
+    "details": "Ride details",
+    "departure": "Departure point",
+    "destination": "Arrival point",
+    "date": "Date",
+    "time": "Departure time",
+    "price": "Price per seat",
+    "seats": "Seats",
+    "seatsAvailable": "seats left",
+    "driver": "Driver",
+    "description": "Notes",
+    "book": "Book a seat",
+    "bookSeats": "Number of seats",
+    "loginToBook": "Login to book",
+    "bookingSuccess": "Booking request sent! Waiting for driver approval.",
+    "viewDetails": "View details",
+    "notFound": "Ride not found",
+    "status": {
+      "scheduled": "Scheduled",
+      "full": "Full",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Sign in to manage your bookings",
+    "registerTitle": "Create account",
+    "registerSubtitle": "Join Wasslni in minutes",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full name",
+    "phone": "Phone number",
+    "role": "Account type",
+    "rolePassenger": "Passenger",
+    "roleDriver": "Driver",
+    "loginButton": "Sign in",
+    "registerButton": "Create account",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "demoHint": "Demo: passenger@demo.com or driver@demo.com — password: demo1234",
+    "invalidCredentials": "Invalid email or password"
+  },
+  "booking": {
+    "title": "My bookings",
+    "empty": "No bookings yet",
+    "emptyHint": "Search for a ride and book your first seat",
+    "status": {
+      "Pending": "Pending approval",
+      "Accepted": "Confirmed",
+      "Rejected": "Rejected",
+      "Cancelled": "Cancelled"
+    },
+    "cancel": "Cancel booking",
+    "seats": "{{count}} seat(s)"
+  },
+  "passenger": {
+    "dashboardTitle": "Hello, {{name}}",
+    "dashboardSubtitle": "Here's your activity summary",
+    "upcomingBookings": "Upcoming bookings",
+    "quickSearch": "Quick search",
+    "profileTitle": "Profile",
+    "notificationsTitle": "Notifications",
+    "notificationsEmpty": "No new notifications",
+    "reviewsTitle": "My reviews"
+  },
+  "driver": {
+    "dashboardTitle": "Driver dashboard",
+    "dashboardSubtitle": "Manage your rides and booking requests",
+    "myRides": "My rides",
+    "createRide": "Publish new ride",
+    "bookingRequests": "Booking requests",
+    "vehicles": "My vehicles",
+    "publishedRides": "Published rides",
+    "noRides": "You haven't published any rides yet",
+    "createFirst": "Publish your first ride"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "back": "Back",
+    "save": "Save",
+    "cancel": "Cancel",
+    "viewAll": "View all",
+    "perSeat": "per seat"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "tagline": "Carpooling platform for the Arab world"
+  }
+}
