@@ -1,44 +1,37 @@
-# ---- Build stage ----
 FROM node:20-alpine AS builder
-WORKDIR /app
+WORKDIR /build
 
-# Copy workspace manifests for layer-cache-friendly install
-COPY package.json package-lock.json turbo.json ./
-COPY packages/shared-types/package.json  ./packages/shared-types/
-COPY packages/shared-ui/package.json     ./packages/shared-ui/
-COPY packages/shared-config/package.json ./packages/shared-config/
-COPY apps/backend/package.json           ./apps/backend/
-COPY apps/frontend/package.json          ./apps/frontend/
+# 1. Build shared-types
+COPY packages/shared-config/ ./packages/shared-config/
+COPY packages/shared-types/  ./packages/shared-types/
+WORKDIR /build/packages/shared-types
+RUN npm install && npm run build
 
-RUN npm ci --include=dev
+# 2. Install backend deps as a standalone project
+#    Strip workspace package refs so npm doesn't hit the registry for them,
+#    then add compiled shared-types via local path.
+WORKDIR /build/apps/backend
+COPY apps/backend/ ./
+RUN node -e " \
+  const fs = require('fs'); \
+  const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); \
+  ['@wasslni/shared-types','@wasslni/shared-ui','@wasslni/shared-config'] \
+    .forEach(k => delete pkg.dependencies?.[k]); \
+  fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2)); \
+"
+RUN npm install
+RUN npm install /build/packages/shared-types --no-save
+RUN ./node_modules/.bin/nest build
 
-# Copy source for packages and backend only
-COPY packages/ ./packages/
-COPY apps/backend/ ./apps/backend/
-
-# Turbo builds shared-types first (honoring ^build), then backend
-RUN ./node_modules/.bin/turbo run build --filter=backend
-
-# ---- Production stage ----
+# ---- Runtime image ----
 FROM node:20-alpine
 WORKDIR /app
 
-# Copy manifests so npm ci can create workspace symlinks
-COPY package.json package-lock.json ./
-COPY packages/shared-types/package.json  ./packages/shared-types/
-COPY packages/shared-ui/package.json     ./packages/shared-ui/
-COPY packages/shared-config/package.json ./packages/shared-config/
-COPY apps/backend/package.json           ./apps/backend/
-COPY apps/frontend/package.json          ./apps/frontend/
+COPY --from=builder /build/apps/backend/node_modules ./node_modules
+COPY --from=builder /build/apps/backend/dist         ./dist
+# Symlink in node_modules resolves to /packages/shared-types (4 levels up from /app/node_modules/@wasslni/)
+COPY --from=builder /build/packages/shared-types/dist    /packages/shared-types/dist
+COPY --from=builder /build/packages/shared-types/package.json /packages/shared-types/
 
-RUN npm ci --omit=dev
-
-# Copy compiled workspace packages (symlinked from node_modules at runtime)
-COPY --from=builder /app/packages/shared-types/dist ./packages/shared-types/dist
-
-# Copy compiled backend
-COPY --from=builder /app/apps/backend/dist ./apps/backend/dist
-
-WORKDIR /app/apps/backend
 EXPOSE 3000
 CMD ["node", "dist/main"]
