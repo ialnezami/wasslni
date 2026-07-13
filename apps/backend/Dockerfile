@@ -10,14 +10,14 @@ COPY packages/shared-config/package.json ./packages/shared-config/
 COPY apps/backend/package.json           ./apps/backend/
 COPY apps/frontend/package.json          ./apps/frontend/
 
-RUN npm ci
+RUN npm ci --include=dev
 
 # Copy source for packages and backend only
 COPY packages/ ./packages/
 COPY apps/backend/ ./apps/backend/
 
 # Turbo builds shared-types first (honoring ^build), then backend
-RUN npx turbo run build --filter=backend
+RUN ./node_modules/.bin/turbo run build --filter=backend
 
 # ---- Production stage ----
 FROM node:20-alpine

@@ -9,13 +9,13 @@ COPY packages/shared-config/package.json ./packages/shared-config/
 COPY apps/backend/package.json           ./apps/backend/
 COPY apps/frontend/package.json          ./apps/frontend/
 
-RUN npm ci
+RUN npm ci --include=dev
 
 COPY packages/ ./packages/
 COPY apps/frontend/ ./apps/frontend/
 
 # Turbo builds shared-types + shared-ui first, then frontend
-RUN npx turbo run build --filter=frontend
+RUN ./node_modules/.bin/turbo run build --filter=frontend
 
 # ---- Production stage ----
 FROM nginx:alpine
