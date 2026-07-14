@@ -11,7 +11,6 @@ interface LoginPayload {
 interface RegisterPayload extends LoginPayload {
   fullName: string;
   phone: string;
-  role: UserRole;
 }
 
 export interface AuthResult {
@@ -33,7 +32,7 @@ function tryDemoRegister(payload: RegisterPayload): AuthResult {
   return {
     user: {
       userId: `demo-${Date.now()}`,
-      role: payload.role,
+      role: UserRole.User,
       email: payload.email,
       fullName: payload.fullName,
     },

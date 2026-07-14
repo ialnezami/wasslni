@@ -9,7 +9,6 @@ export interface LoginPayload {
 export interface RegisterPayload extends LoginPayload {
   fullName: string;
   phone: string;
-  role: AuthUser['role'];
 }
 
 export const authApi = {
