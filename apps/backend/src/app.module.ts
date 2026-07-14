@@ -15,6 +15,9 @@ import { ReviewsModule } from './reviews/reviews.module';
 import { ReportsModule } from './reports/reports.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { AdminModule } from './admin/admin.module';
+import { RecurringTripsModule } from './recurring-trips/recurring-trips.module';
+import { RecurringSubscriptionsModule } from './recurring-subscriptions/recurring-subscriptions.module';
+import { SchedulerModule } from './scheduler/scheduler.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -38,6 +41,9 @@ import { AppService } from './app.service';
     ReportsModule,
     NotificationsModule,
     AdminModule,
+    RecurringTripsModule,
+    RecurringSubscriptionsModule,
+    SchedulerModule,
   ],
   controllers: [AppController],
   providers: [

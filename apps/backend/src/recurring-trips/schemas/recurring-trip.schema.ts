@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { RideStatus } from '@wasslni/shared-types';
+import { RecurringTripStatus } from '@wasslni/shared-types';
 import { BaseDocument } from '../../database/base.schema';
 import { Types } from 'mongoose';
 
-@Schema({ timestamps: true, collection: 'rides' })
-export class Ride extends BaseDocument {
+@Schema({ timestamps: true, collection: 'recurring_trips' })
+export class RecurringTrip extends BaseDocument {
   @Prop({ type: Types.ObjectId, ref: 'User', required: true, index: true })
   driverId!: Types.ObjectId;
 
@@ -23,9 +23,6 @@ export class Ride extends BaseDocument {
   @Prop()
   destinationPoint?: string;
 
-  @Prop({ required: true, index: true })
-  date!: string;
-
   @Prop({ required: true })
   departureTime!: string;
 
@@ -35,18 +32,20 @@ export class Ride extends BaseDocument {
   @Prop({ required: true })
   totalSeats!: number;
 
-  @Prop({ required: true })
-  availableSeats!: number;
-
   @Prop()
   description?: string;
 
-  @Prop({ required: true, enum: RideStatus, default: RideStatus.Scheduled, index: true })
-  status!: RideStatus;
+  @Prop({ type: Object, required: true })
+  recurrence!: { type: 'daily' | 'weekdays'; days: number[] };
 
-  @Prop({ type: Types.ObjectId, ref: 'RecurringTrip', index: true, default: null })
-  recurringTripId?: Types.ObjectId | null;
+  @Prop({ required: true, enum: RecurringTripStatus, default: RecurringTripStatus.Active, index: true })
+  status!: RecurringTripStatus;
+
+  @Prop({ required: true, type: Date })
+  generatedUpTo!: Date;
+
+  @Prop({ type: Date, default: null })
+  cascadeProcessedAt?: Date | null;
 }
 
-export const RideSchema = SchemaFactory.createForClass(Ride);
-RideSchema.index({ departureCityId: 1, destinationCityId: 1, date: 1 });
+export const RecurringTripSchema = SchemaFactory.createForClass(RecurringTrip);

@@ -43,4 +43,14 @@ export class RidesRepository {
   }
 
   count(filter: FilterQuery<Ride> = {}) { return this.rideModel.countDocuments({ deletedAt: null, ...filter }).exec(); }
+
+  findByRecurringTripAndDate(recurringTripId: string, date: string) {
+    return this.rideModel.findOne({ recurringTripId, date, deletedAt: null }).exec();
+  }
+
+  findFutureByRecurringTrip(recurringTripId: string, afterDate: string) {
+    return this.rideModel
+      .find({ recurringTripId, date: { $gt: afterDate }, status: { $in: [RideStatus.Scheduled, RideStatus.Full] }, deletedAt: null })
+      .exec();
+  }
 }
