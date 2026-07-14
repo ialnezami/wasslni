@@ -14,6 +14,8 @@ export function UserLayout() {
     { to: '/app/notifications', label: t('user.notifications') },
     { to: '/app/profile', label: t('user.profile') },
     { to: '/app/reviews', label: t('user.reviews') },
+    { to: '/search', label: t('nav.search'), dividerBefore: true },
+    { to: '/', label: t('nav.home') },
   ];
 
   return <DashboardLayout title={t('app.name')} links={links} />;

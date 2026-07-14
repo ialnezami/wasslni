@@ -4,12 +4,10 @@ import { useQuery } from '@tanstack/react-query';
 import { BookingStatus } from '@wasslni/shared-types';
 import { useAuthStore } from '@/store/auth.store';
 import { useBookingsStore } from '@/store/bookings.store';
-import { RideSearchForm } from '@/components/RideSearchForm';
 import { RideCard } from '@/components/RideCard';
 import { EmptyState } from '@/components/EmptyState';
 import { Card } from '@/components/ui';
 import { Button } from '@wasslni/shared-ui';
-import { useCities } from '@/hooks/useCities';
 import { formatDate } from '@/utils/format';
 import { ridesApi } from '@/api/rides';
 import { DEMO_RIDES } from '@/data/demo';
@@ -19,8 +17,6 @@ export function DashboardPage() {
   const { t, i18n } = useTranslation();
   const user = useAuthStore((s) => s.user);
   const bookings = useBookingsStore((s) => s.bookings);
-  const { data: cities = [] } = useCities();
-
   const { data: myRides = [] } = useQuery({
     queryKey: ['rides', 'mine'],
     queryFn: async () => {
@@ -41,22 +37,34 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-slate-900">
-            {t('user.dashboardTitle', { name: user?.fullName ?? '' })}
-          </h2>
-          <p className="text-slate-600">{t('user.dashboardSubtitle')}</p>
-        </div>
-        <Link to="/app/create-ride">
-          <Button>{t('user.createRide')}</Button>
-        </Link>
+      <div>
+        <h2 className="text-2xl font-bold text-slate-900">
+          {t('user.dashboardTitle', { name: user?.fullName ?? '' })}
+        </h2>
+        <p className="mt-1 text-slate-600">{t('user.dashboardSubtitle')}</p>
       </div>
 
-      <Card>
-        <h3 className="mb-4 font-semibold">{t('user.quickSearch')}</h3>
-        <RideSearchForm cities={cities} compact />
-      </Card>
+      {/* Primary actions */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Link to="/search" className="block">
+          <div className="group flex h-full flex-col items-center justify-center gap-3 rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-6 text-center transition hover:border-emerald-400 hover:bg-emerald-100">
+            <span className="text-4xl">🔍</span>
+            <div>
+              <p className="text-lg font-bold text-emerald-800">{t('user.searchTrip')}</p>
+              <p className="mt-1 text-sm text-emerald-600">{t('user.searchTripHint')}</p>
+            </div>
+          </div>
+        </Link>
+        <Link to="/app/create-ride" className="block">
+          <div className="group flex h-full flex-col items-center justify-center gap-3 rounded-2xl border-2 border-slate-200 bg-white p-6 text-center transition hover:border-emerald-300 hover:bg-emerald-50">
+            <span className="text-4xl">🚗</span>
+            <div>
+              <p className="text-lg font-bold text-slate-800">{t('user.offerTrip')}</p>
+              <p className="mt-1 text-sm text-slate-500">{t('user.offerTripHint')}</p>
+            </div>
+          </div>
+        </Link>
+      </div>
 
       <div>
         <h3 className="mb-4 font-semibold">{t('user.myRides')}</h3>

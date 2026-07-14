@@ -6,7 +6,7 @@ import { cn } from '@/utils/format';
 
 interface DashboardLayoutProps {
   title: string;
-  links: Array<{ to: string; label: string }>;
+  links: Array<{ to: string; label: string; dividerBefore?: boolean }>;
 }
 
 export function DashboardLayout({ title, links }: DashboardLayoutProps) {
@@ -57,18 +57,20 @@ export function DashboardLayout({ title, links }: DashboardLayoutProps) {
           <aside className="hidden rounded-2xl border border-slate-200 bg-white p-3 md:block">
             <nav className="flex flex-col gap-1">
               {links.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={cn(
-                    'rounded-xl px-3 py-2.5 text-sm font-medium transition',
-                    location.pathname === link.to
-                      ? 'bg-emerald-50 text-emerald-800'
-                      : 'text-slate-700 hover:bg-slate-50',
-                  )}
-                >
-                  {link.label}
-                </Link>
+                <div key={link.to}>
+                  {link.dividerBefore && <hr className="my-2 border-slate-100" />}
+                  <Link
+                    to={link.to}
+                    className={cn(
+                      'block rounded-xl px-3 py-2.5 text-sm font-medium transition',
+                      location.pathname === link.to
+                        ? 'bg-emerald-50 text-emerald-800'
+                        : 'text-slate-600 hover:bg-slate-50',
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                </div>
               ))}
             </nav>
           </aside>
