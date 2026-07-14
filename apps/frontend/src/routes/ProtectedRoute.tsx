@@ -14,7 +14,8 @@ export function ProtectedRoute({ allowedRoles }: ProtectedRouteProps) {
   }
 
   if (allowedRoles && !allowedRoles.includes(user.role)) {
-    return <Navigate to="/dashboard" replace />;
+    // Stale or mismatched role (e.g. after enum migration) — force re-login
+    return <Navigate to="/login" replace />;
   }
 
   return <Outlet />;

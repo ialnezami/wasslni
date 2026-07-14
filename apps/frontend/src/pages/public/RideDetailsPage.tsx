@@ -92,7 +92,7 @@ export function RideDetailsPage() {
             <div>
               <dt className="text-sm text-slate-500">{t('ride.driver')}</dt>
               <dd className="font-medium">
-                {ride.driverName} · ★ {ride.driverRating.toFixed(1)}
+                {ride.driverName ?? '—'}{ride.driverRating != null ? ` · ★ ${ride.driverRating.toFixed(1)}` : ''}
               </dd>
             </div>
             <div>
