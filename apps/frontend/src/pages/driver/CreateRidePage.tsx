@@ -156,7 +156,7 @@ export function CreateRidePage() {
               <option value="">{t('driver.selectVehicle')}</option>
               {vehicles.map((v) => (
                 <option key={v._id} value={v._id}>
-                  {v.make} {v.model} ({v.plate})
+                  {v.brand} {v.vehicleModel} ({v.licensePlate})
                 </option>
               ))}
             </Select>
@@ -168,6 +168,8 @@ export function CreateRidePage() {
                 render={({ field }) => (
                   <CitySelect
                     label={t('search.from')}
+                    placeholder={t('search.selectCity')}
+                    name="departureCityId"
                     cities={cities}
                     value={field.value}
                     onChange={field.onChange}
@@ -181,6 +183,8 @@ export function CreateRidePage() {
                 render={({ field }) => (
                   <CitySelect
                     label={t('search.to')}
+                    placeholder={t('search.selectCity')}
+                    name="destinationCityId"
                     cities={cities}
                     value={field.value}
                     onChange={field.onChange}
@@ -217,7 +221,7 @@ export function CreateRidePage() {
               <option value="">{t('driver.selectVehicle')}</option>
               {vehicles.map((v) => (
                 <option key={v._id} value={v._id}>
-                  {v.make} {v.model} ({v.plate})
+                  {v.brand} {v.vehicleModel} ({v.licensePlate})
                 </option>
               ))}
             </Select>
@@ -229,6 +233,8 @@ export function CreateRidePage() {
                 render={({ field }) => (
                   <CitySelect
                     label={t('search.from')}
+                    placeholder={t('search.selectCity')}
+                    name="departureCityId"
                     cities={cities}
                     value={field.value}
                     onChange={field.onChange}
@@ -242,6 +248,8 @@ export function CreateRidePage() {
                 render={({ field }) => (
                   <CitySelect
                     label={t('search.to')}
+                    placeholder={t('search.selectCity')}
+                    name="destinationCityId"
                     cities={cities}
                     value={field.value}
                     onChange={field.onChange}
