@@ -29,6 +29,23 @@ export enum NotificationType {
   BookingRejected = 'BookingRejected',
   RideCancelled = 'RideCancelled',
   RideReminder = 'RideReminder',
+  RecurringSubscriptionReceived = 'RecurringSubscriptionReceived',
+  RecurringSubscriptionApproved = 'RecurringSubscriptionApproved',
+  RecurringSubscriptionRejected = 'RecurringSubscriptionRejected',
+  RecurringTripCancelled = 'RecurringTripCancelled',
+  RecurringSkipConfirmed = 'RecurringSkipConfirmed',
+}
+
+export enum RecurringTripStatus {
+  Active = 'active',
+  Paused = 'paused',
+  Cancelled = 'cancelled',
+}
+
+export enum RecurringSubscriptionStatus {
+  Pending = 'pending',
+  Active = 'active',
+  Cancelled = 'cancelled',
 }
 
 export enum ReportReason {

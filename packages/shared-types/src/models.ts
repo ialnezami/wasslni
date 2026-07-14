@@ -2,6 +2,8 @@ import {
   BookingStatus,
   NotificationType,
   PaymentStatus,
+  RecurringSubscriptionStatus,
+  RecurringTripStatus,
   ReportReason,
   ReportTargetType,
   RideStatus,
@@ -59,6 +61,7 @@ export interface Ride extends BaseEntity {
   availableSeats: number;
   description?: string;
   status: RideStatus;
+  recurringTripId?: string;
 }
 
 export interface Booking extends BaseEntity {
@@ -118,4 +121,30 @@ export interface PaginatedResponse<T> {
   page: number;
   limit: number;
   totalPages: number;
+}
+
+export interface RecurringTrip extends BaseEntity {
+  driverId: string;
+  vehicleId: string;
+  departureCityId: string;
+  destinationCityId: string;
+  departurePoint: string;
+  destinationPoint?: string;
+  departureTime: string;
+  price: number;
+  totalSeats: number;
+  description?: string;
+  recurrence: { type: 'daily' | 'weekdays'; days: number[] };
+  status: RecurringTripStatus;
+  generatedUpTo: string;
+  cascadeProcessedAt?: string | null;
+}
+
+export interface RecurringSubscription extends BaseEntity {
+  recurringTripId: string;
+  passengerId: string;
+  seats: number;
+  status: RecurringSubscriptionStatus;
+  scheduleDays: number[] | null;
+  skippedDates: string[];
 }
