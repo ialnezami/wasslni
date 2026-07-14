@@ -1,13 +1,13 @@
 export function formatPrice(amount: number, locale: string): string {
-  return new Intl.NumberFormat(locale === 'ar' ? 'ar-MA' : locale === 'fr' ? 'fr-MA' : 'en-MA', {
+  return new Intl.NumberFormat(locale === 'ar' ? 'ar-SY' : locale === 'fr' ? 'fr-MA' : 'en-MA', {
     style: 'currency',
-    currency: 'MAD',
+    currency: 'SYP',
     maximumFractionDigits: 0,
   }).format(amount);
 }
 
 export function formatDate(date: string, locale: string): string {
-  return new Intl.DateTimeFormat(locale === 'ar' ? 'ar-MA' : locale === 'fr' ? 'fr-FR' : 'en-GB', {
+  return new Intl.DateTimeFormat(locale === 'ar' ? 'ar-SY' : locale === 'fr' ? 'fr-FR' : 'en-GB', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
@@ -16,7 +16,7 @@ export function formatDate(date: string, locale: string): string {
 }
 
 export function formatShortDate(date: string, locale: string): string {
-  return new Intl.DateTimeFormat(locale === 'ar' ? 'ar-MA' : locale === 'fr' ? 'fr-FR' : 'en-GB', {
+  return new Intl.DateTimeFormat(locale === 'ar' ? 'ar-SY' : locale === 'fr' ? 'fr-FR' : 'en-GB', {
     month: 'short',
     day: 'numeric',
   }).format(new Date(date));

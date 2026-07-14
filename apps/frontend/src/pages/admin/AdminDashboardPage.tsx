@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import apiClient from '@/api/client';
 import { Card, Spinner } from '@/components/ui';
 
-interface Stats { users: number; drivers: number; passengers: number; rides: number; bookings: number; reports: number; }
+interface Stats { users: number; rides: number; bookings: number; reports: number; }
 
 export function AdminDashboardPage() {
   const { t } = useTranslation();
@@ -14,8 +14,6 @@ export function AdminDashboardPage() {
 
   const cards = stats ? [
     { label: t('admin.totalUsers'), value: stats.users },
-    { label: t('admin.totalDrivers'), value: stats.drivers },
-    { label: t('admin.totalPassengers'), value: stats.passengers },
     { label: t('admin.totalRides'), value: stats.rides },
     { label: t('admin.totalBookings'), value: stats.bookings },
     { label: t('admin.totalReports'), value: stats.reports },

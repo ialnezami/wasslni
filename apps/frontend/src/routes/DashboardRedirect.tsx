@@ -9,13 +9,9 @@ export function DashboardRedirect() {
     return <Navigate to="/login" replace />;
   }
 
-  switch (user.role) {
-    case UserRole.Admin:
-      return <Navigate to="/admin" replace />;
-    case UserRole.Driver:
-      return <Navigate to="/driver" replace />;
-    case UserRole.Passenger:
-    default:
-      return <Navigate to="/passenger" replace />;
+  if (user.role === UserRole.Admin) {
+    return <Navigate to="/admin" replace />;
   }
+
+  return <Navigate to="/app" replace />;
 }

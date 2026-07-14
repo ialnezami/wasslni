@@ -4,9 +4,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useTranslation } from 'react-i18next';
-import { UserRole } from '@wasslni/shared-types';
 import { Button } from '@wasslni/shared-ui';
-import { Input, Alert, Card, Select } from '@/components/ui';
+import { Input, Alert, Card } from '@/components/ui';
 import { registerUser } from '@/services/auth.service';
 import { useAuthStore } from '@/store/auth.store';
 
@@ -15,7 +14,6 @@ const schema = z.object({
   email: z.string().email(),
   phone: z.string().min(8),
   password: z.string().min(8),
-  role: z.nativeEnum(UserRole),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -37,7 +35,6 @@ export function RegisterPage() {
       email: '',
       phone: '',
       password: '',
-      role: UserRole.Passenger,
     },
   });
 
@@ -87,11 +84,6 @@ export function RegisterPage() {
             error={errors.password?.message}
             {...register('password')}
           />
-          <Select label={t('auth.role')} error={errors.role?.message} {...register('role')}>
-            <option value={UserRole.Passenger}>{t('auth.rolePassenger')}</option>
-            <option value={UserRole.Driver}>{t('auth.roleDriver')}</option>
-          </Select>
-
           <Button type="submit" disabled={isSubmitting} className="w-full py-3">
             {t('auth.registerButton')}
           </Button>

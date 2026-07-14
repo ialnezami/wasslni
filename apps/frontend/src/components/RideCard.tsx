@@ -37,7 +37,7 @@ export function RideCard({ ride }: RideCardProps) {
             <span>{ride.departurePoint}</span>
             <span>·</span>
             <span>
-              {ride.driverName} · ★ {ride.driverRating.toFixed(1)}
+              {ride.driverName ?? '—'}{ride.driverRating != null ? ` · ★ ${ride.driverRating.toFixed(1)}` : ''}
             </span>
           </div>
         </div>

@@ -1,7 +1,6 @@
 export enum UserRole {
   Admin = 'Admin',
-  Driver = 'Driver',
-  Passenger = 'Passenger',
+  User = 'User',
 }
 
 export enum RideStatus {

@@ -18,8 +18,8 @@ const schema = z.object({
   departurePoint: z.string().min(2),
   date: z.string().min(1),
   departureTime: z.string().min(1),
-  price: z.coerce.number().min(1),
-  totalSeats: z.coerce.number().min(1).max(8),
+  price: z.number().min(1),
+  totalSeats: z.number().min(1).max(8),
   description: z.string().optional(),
 });
 
@@ -54,7 +54,7 @@ export function CreateRidePage() {
     mutationFn: ridesApi.create,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['rides', 'mine'] });
-      navigate('/driver/rides');
+      navigate('/app/my-rides');
     },
     onError: () => setError('root', { message: t('common.error') }),
   });
@@ -62,16 +62,16 @@ export function CreateRidePage() {
   if (vehicles.length === 0) {
     return (
       <div className="mx-auto max-w-xl space-y-6">
-        <h2 className="text-xl font-semibold">{t('driver.createRide')}</h2>
+        <h2 className="text-xl font-semibold">{t('user.createRide')}</h2>
         <Alert variant="info">{t('driver.noVehiclesHint')}</Alert>
-        <Button onClick={() => navigate('/driver/vehicles')}>{t('driver.addVehicle')}</Button>
+        <Button onClick={() => navigate('/app/vehicles')}>{t('user.addVehicle')}</Button>
       </div>
     );
   }
 
   return (
     <div className="mx-auto max-w-xl space-y-6">
-      <h2 className="text-xl font-semibold">{t('driver.createRide')}</h2>
+      <h2 className="text-xl font-semibold">{t('user.createRide')}</h2>
       <Card>
         <form onSubmit={handleSubmit((d) => mutation.mutate(d))} className="space-y-4">
           {mutation.isError && <Alert variant="error">{t('common.error')}</Alert>}
@@ -96,8 +96,8 @@ export function CreateRidePage() {
             <Input type="time" label={t('ride.time')} error={errors.departureTime?.message} {...register('departureTime')} />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Input type="number" label={t('ride.price')} error={errors.price?.message} {...register('price')} />
-            <Input type="number" label={t('ride.seats')} error={errors.totalSeats?.message} {...register('totalSeats')} />
+            <Input type="number" label={t('ride.price')} error={errors.price?.message} {...register('price', { valueAsNumber: true })} />
+            <Input type="number" label={t('ride.seats')} error={errors.totalSeats?.message} {...register('totalSeats', { valueAsNumber: true })} />
           </div>
           <Input label={t('ride.description')} {...register('description')} />
 

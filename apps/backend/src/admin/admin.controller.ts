@@ -35,4 +35,20 @@ export class AdminController {
   deleteUser(@Param('id') id: string) {
     return this.adminService.softDeleteUser(id);
   }
+
+  @Get('reports')
+  getReports() {
+    return this.adminService.getReports();
+  }
+
+  @Get('reviews')
+  getReviews() {
+    return this.adminService.getReviews();
+  }
+
+  @Delete('reports/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  deleteReport(@Param('id') id: string) {
+    return this.adminService.deleteReport(id);
+  }
 }

@@ -32,7 +32,7 @@ export function DriverDashboardPage() {
           <h2 className="text-2xl font-bold text-slate-900">{t('driver.dashboardTitle')}</h2>
           <p className="text-slate-600">{t('driver.dashboardSubtitle')}</p>
         </div>
-        <Link to="/driver/rides/new">
+        <Link to="/app/create-ride">
           <Button>{t('driver.createRide')}</Button>
         </Link>
       </div>
@@ -40,7 +40,7 @@ export function DriverDashboardPage() {
       <div>
         <h3 className="mb-4 font-semibold">{t('driver.publishedRides')}</h3>
         {recent.length === 0 ? (
-          <EmptyState title={t('driver.noRides')} description={t('driver.createFirst')} actionLabel={t('driver.createRide')} actionTo="/driver/rides/new" />
+          <EmptyState title={t('driver.noRides')} description={t('driver.createFirst')} actionLabel={t('driver.createRide')} actionTo="/app/create-ride" />
         ) : (
           <div className="space-y-4">
             {recent.map((ride) => (

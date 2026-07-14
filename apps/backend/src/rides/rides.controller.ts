@@ -3,10 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { RidesService } from './rides.service';
 import { CreateRideDto, SearchRidesDto, UpdateRideDto } from './dto/rides.dto';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
-import { RolesGuard } from '../common/guards/roles.guard';
-import { Roles } from '../common/decorators/roles.decorator';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
-import { UserRole } from '@wasslni/shared-types';
 import type { AuthUser } from '@wasslni/shared-types';
 
 @ApiTags('rides')
@@ -19,13 +16,11 @@ export class RidesController {
     return this.ridesService.search(query);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.Driver)
+  @UseGuards(JwtAuthGuard)
   @Get('me')
   findMine(@CurrentUser() user: AuthUser) { return this.ridesService.findMine(user.userId); }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.Driver)
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@CurrentUser() user: AuthUser, @Body() dto: CreateRideDto) { return this.ridesService.create(user.userId, dto); }
 

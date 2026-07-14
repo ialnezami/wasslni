@@ -158,6 +158,14 @@
     "notificationsEmpty": "لا توجد إشعارات جديدة",
     "reviewsTitle": "تقييماتي"
   },
+  "profile": {
+    "photosTitle": "الصور",
+    "profilePhoto": "صورة الملف الشخصي",
+    "licensePhoto": "صورة رخصة القيادة (اختياري)",
+    "addPhoto": "إضافة صورة",
+    "changePhoto": "تغيير الصورة",
+    "addCarPhoto": "إضافة صورة السيارة"
+  },
   "driver": {
     "dashboardTitle": "لوحة السائق",
     "dashboardSubtitle": "أدر رحلاتك وطلبات الحجز",

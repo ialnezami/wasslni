@@ -3,9 +3,16 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
+import { mkdirSync } from 'fs';
+import { join } from 'path';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
+  // Ensure upload directories exist (volume is mounted at /app/uploads in Docker)
+  for (const sub of ['profiles', 'vehicles', 'licenses']) {
+    mkdirSync(join(process.cwd(), 'uploads', sub), { recursive: true });
+  }
+
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
 

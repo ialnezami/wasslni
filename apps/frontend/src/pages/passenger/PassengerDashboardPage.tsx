@@ -36,7 +36,7 @@ export function PassengerDashboardPage() {
       <div>
         <div className="mb-4 flex items-center justify-between">
           <h3 className="font-semibold">{t('passenger.upcomingBookings')}</h3>
-          <Link to="/passenger/bookings">
+          <Link to="/app/bookings">
             <Button variant="ghost">{t('common.viewAll')}</Button>
           </Link>
         </div>

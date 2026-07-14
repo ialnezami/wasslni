@@ -32,6 +32,8 @@ services:
       JWT_ACCESS_EXPIRES_IN: 15m
       JWT_REFRESH_EXPIRES_IN: 7d
       CORS_ORIGIN: http://localhost
+    volumes:
+      - uploads_data:/app/uploads
     depends_on:
       mongodb:
         condition: service_healthy
@@ -44,8 +46,11 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
+    volumes:
+      - uploads_data:/uploads:ro
     depends_on:
       - backend
 
 volumes:
   mongodb_data:
+  uploads_data:

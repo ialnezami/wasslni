@@ -19,11 +19,14 @@ export class User extends BaseDocument {
   @Prop({ select: false })
   refreshTokenHash?: string;
 
-  @Prop({ required: true, enum: UserRole, default: UserRole.Passenger })
+  @Prop({ required: true, enum: UserRole, default: UserRole.User })
   role!: UserRole;
 
   @Prop()
   photoUrl?: string;
+
+  @Prop()
+  licensePhotoUrl?: string;
 
   @Prop({ default: false })
   isVerified!: boolean;

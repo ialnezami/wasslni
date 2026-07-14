@@ -15,7 +15,6 @@ export class AuthService {
   ) {}
 
   async register(dto: RegisterDto) {
-    if (dto.role === UserRole.Admin) throw new UnauthorizedException('Admin registration is not allowed');
     const existing = await this.usersRepository.findByEmail(dto.email);
     if (existing) throw new BadRequestException('Email is already registered');
     const passwordHash = await bcrypt.hash(dto.password, 12);
@@ -24,7 +23,7 @@ export class AuthService {
       email: dto.email.toLowerCase(),
       phone: dto.phone,
       passwordHash,
-      role: dto.role,
+      role: UserRole.User,
     });
     return this.issueTokens(user);
   }

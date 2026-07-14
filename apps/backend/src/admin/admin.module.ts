@@ -6,6 +6,7 @@ import { User, UserSchema } from '../users/schemas/user.schema';
 import { Ride, RideSchema } from '../rides/schemas/ride.schema';
 import { Booking, BookingSchema } from '../bookings/schemas/booking.schema';
 import { Report, ReportSchema } from '../reports/schemas/report.schema';
+import { Review, ReviewSchema } from '../reviews/schemas/review.schema';
 
 @Module({
   imports: [MongooseModule.forFeature([
@@ -13,6 +14,7 @@ import { Report, ReportSchema } from '../reports/schemas/report.schema';
     { name: Ride.name, schema: RideSchema },
     { name: Booking.name, schema: BookingSchema },
     { name: Report.name, schema: ReportSchema },
+    { name: Review.name, schema: ReviewSchema },
   ])],
   controllers: [AdminController],
   providers: [AdminService],

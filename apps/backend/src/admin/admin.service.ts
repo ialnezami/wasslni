@@ -6,6 +6,7 @@ import { User } from '../users/schemas/user.schema';
 import { Ride } from '../rides/schemas/ride.schema';
 import { Booking } from '../bookings/schemas/booking.schema';
 import { Report } from '../reports/schemas/report.schema';
+import { Review } from '../reviews/schemas/review.schema';
 
 @Injectable()
 export class AdminService {
@@ -14,27 +15,27 @@ export class AdminService {
     @InjectModel(Ride.name) private readonly rideModel: Model<Ride>,
     @InjectModel(Booking.name) private readonly bookingModel: Model<Booking>,
     @InjectModel(Report.name) private readonly reportModel: Model<Report>,
+    @InjectModel(Review.name) private readonly reviewModel: Model<Review>,
   ) {}
 
   async getDashboardStats() {
     const active = { deletedAt: null };
-    const [users, drivers, passengers, rides, bookings, reports] = await Promise.all([
+    const [users, rides, bookings, reports] = await Promise.all([
       this.userModel.countDocuments(active),
-      this.userModel.countDocuments({ ...active, role: UserRole.Driver }),
-      this.userModel.countDocuments({ ...active, role: UserRole.Passenger }),
       this.rideModel.countDocuments(active),
       this.bookingModel.countDocuments(active),
       this.reportModel.countDocuments(active),
     ]);
-    return { users, drivers, passengers, rides, bookings, reports };
+    return { users, rides, bookings, reports };
   }
 
-  async getUsers(): Promise<User[]> {
+  async getUsers() {
     return this.userModel
       .find({ deletedAt: null })
       .select('-passwordHash -refreshTokenHash')
       .sort({ createdAt: -1 })
-      .lean();
+      .lean()
+      .exec();
   }
 
   async toggleBan(id: string, ban: boolean): Promise<{ _id: unknown; isBanned: boolean }> {
@@ -51,5 +52,28 @@ export class AdminService {
     if (!user) throw new NotFoundException('User not found');
     if (user.role === UserRole.Admin) throw new ForbiddenException('Cannot delete an admin account');
     await this.userModel.updateOne({ _id: id }, { deletedAt: new Date() });
+  }
+
+  async getReports() {
+    return this.reportModel
+      .find({ deletedAt: null })
+      .populate('reporterId', 'fullName email role')
+      .sort({ createdAt: -1 })
+      .lean();
+  }
+
+  async getReviews() {
+    return this.reviewModel
+      .find({ deletedAt: null })
+      .populate('reviewerId', 'fullName email role')
+      .populate('revieweeId', 'fullName email role')
+      .sort({ createdAt: -1 })
+      .lean();
+  }
+
+  async deleteReport(id: string): Promise<void> {
+    const report = await this.reportModel.findOne({ _id: id, deletedAt: null });
+    if (!report) throw new NotFoundException('Report not found');
+    await this.reportModel.updateOne({ _id: id }, { deletedAt: new Date() });
   }
 }

@@ -15,4 +15,5 @@ export class UpdateVehicleDto {
   @IsOptional() @IsString() @MaxLength(40) color?: string;
   @IsOptional() @IsString() @MaxLength(30) licensePlate?: string;
   @IsOptional() @Type(() => Number) @IsInt() @Min(1) seats?: number;
+  @IsOptional() @IsString() @MaxLength(500) photoUrl?: string;
 }

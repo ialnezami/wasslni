@@ -24,6 +24,12 @@ export class Vehicle extends BaseDocument {
 
   @Prop({ required: true, min: 1 })
   seats!: number;
+
+  @Prop()
+  photoUrl?: string;
+
+  @Prop({ default: false })
+  isDeleted!: boolean;
 }
 
 export const VehicleSchema = SchemaFactory.createForClass(Vehicle);
