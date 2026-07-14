@@ -226,5 +226,46 @@
   "footer": {
     "rights": "جميع الحقوق محفوظة",
     "tagline": "منصة المشاركة في الرحلات للعالم العربي"
+  },
+  "recurring": {
+    "toggle": "رحلة يومية متكررة؟",
+    "recurrenceType": "نوع التكرار",
+    "daily": "كل يوم",
+    "weekdays": "أيام محددة",
+    "selectDays": "اختر الأيام",
+    "days": {
+      "0": "الأحد",
+      "1": "الاثنين",
+      "2": "الثلاثاء",
+      "3": "الأربعاء",
+      "4": "الخميس",
+      "5": "الجمعة",
+      "6": "السبت"
+    },
+    "badge": "رحلة متكررة",
+    "myRecurringTrips": "رحلاتي المتكررة",
+    "mySubscriptions": "اشتراكاتي في الرحلات المتكررة",
+    "allDays": "كل الأيام",
+    "skipDay": "تخطي يوم",
+    "unsubscribe": "إلغاء الاشتراك",
+    "pause": "إيقاف مؤقت",
+    "resume": "استئناف",
+    "cancelTrip": "إلغاء الرحلة المتكررة",
+    "subscribers": "مشترك",
+    "pendingSubscribers": "طلبات اشتراك معلّقة",
+    "noRecurringTrips": "لا توجد رحلات متكررة بعد",
+    "noSubscriptions": "لا توجد اشتراكات متكررة بعد",
+    "status": {
+      "active": "نشطة",
+      "paused": "متوقفة مؤقتاً",
+      "cancelled": "ملغاة"
+    },
+    "subscriptionStatus": {
+      "pending": "بانتظار موافقة السائق",
+      "active": "نشط",
+      "cancelled": "ملغى"
+    },
+    "approveSubscription": "قبول",
+    "rejectSubscription": "رفض"
   }
 }
