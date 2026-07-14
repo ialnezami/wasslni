@@ -19,10 +19,6 @@ export function ProfilePage() {
             <dt className="text-sm text-slate-500">{t('auth.email')}</dt>
             <dd className="font-medium">{user?.email}</dd>
           </div>
-          <div>
-            <dt className="text-sm text-slate-500">{t('auth.role')}</dt>
-            <dd className="font-medium">{user?.role}</dd>
-          </div>
         </dl>
       </Card>
     </div>
