@@ -41,7 +41,8 @@
     "results": "{{count}} رحلة متاحة",
     "noResults": "لا توجد رحلات لهذا المسار",
     "noResultsHint": "جرّب تاريخاً آخر أو مدناً مختلفة",
-    "swapCities": "تبديل"
+    "swapCities": "تبديل",
+    "daysWithTrips": "أيام توجد فيها رحلات"
   },
   "ride": {
     "details": "تفاصيل الرحلة",
