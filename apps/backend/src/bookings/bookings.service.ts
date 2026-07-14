@@ -17,6 +17,13 @@ export class BookingsService {
     return this.bookingsRepository.findByPassenger(passengerId);
   }
 
+  async findForDriver(driverId: string) {
+    const rides = await this.ridesRepository.findByDriver(driverId);
+    if (rides.length === 0) return [];
+    const rideIds = rides.map((r) => String(r._id));
+    return this.bookingsRepository.findByRideIds(rideIds);
+  }
+
   async create(passengerId: string, dto: CreateBookingDto) {
     const ride = await this.ridesRepository.findById(dto.rideId);
     if (!ride || ride.status !== RideStatus.Scheduled) throw new BadRequestException('Ride is not available for booking');

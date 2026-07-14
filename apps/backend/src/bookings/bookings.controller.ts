@@ -18,6 +18,11 @@ export class BookingsController {
     return this.bookingsService.findMine(user.userId);
   }
 
+  @Get('driver')
+  findForDriver(@CurrentUser() user: AuthUser) {
+    return this.bookingsService.findForDriver(user.userId);
+  }
+
   @Post()
   create(@CurrentUser() user: AuthUser, @Body() dto: CreateBookingDto) { return this.bookingsService.create(user.userId, dto); }
 

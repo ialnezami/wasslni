@@ -18,6 +18,7 @@ export class BookingsRepository {
   }
 
   findByRide(rideId: string) { return this.bookingModel.find({ rideId, deletedAt: null }).sort({ createdAt: -1 }).exec(); }
+  findByRideIds(rideIds: string[]) { return this.bookingModel.find({ rideId: { $in: rideIds }, deletedAt: null }).sort({ createdAt: -1 }).exec(); }
   findById(id: string) { return this.bookingModel.findOne({ _id: id, deletedAt: null }).exec(); }
   findActiveByRideAndPassenger(rideId: string, passengerId: string) { return this.bookingModel.findOne({ rideId, passengerId, status: { $in: [BookingStatus.Pending, BookingStatus.Accepted] }, deletedAt: null }).exec(); }
   create(data: Partial<Booking>) { return this.bookingModel.create(data); }
