@@ -3,19 +3,25 @@ import type { Message } from '@wasslni/shared-types';
 import { getChatSocket } from '@/lib/socket';
 import { messagesApi } from '@/api/messages';
 
+/**
+ * useChat(bookingId: string | null): { messages: Message[]; isLoading: boolean; error: boolean; send(text: string): void }
+ */
 export function useChat(bookingId: string | null) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
   const activeRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!bookingId) {
       setMessages([]);
+      setError(false);
       return;
     }
 
     activeRef.current = bookingId;
     const socket = getChatSocket();
+    setError(false);
 
     setIsLoading(true);
     messagesApi
@@ -23,8 +29,15 @@ export function useChat(bookingId: string | null) {
       .then((r) => {
         if (activeRef.current === bookingId) setMessages(r.data);
       })
-      .catch(() => {})
-      .finally(() => setIsLoading(false));
+      .catch((err) => {
+        if (activeRef.current === bookingId) {
+          console.error('[useChat] Failed to load history for booking', bookingId, err);
+          setError(true);
+        }
+      })
+      .finally(() => {
+        if (activeRef.current === bookingId) setIsLoading(false);
+      });
 
     socket.emit('join-booking', { bookingId });
 
@@ -47,5 +60,5 @@ export function useChat(bookingId: string | null) {
     getChatSocket().emit('send-message', { bookingId, text: text.trim() });
   };
 
-  return { messages, isLoading, send };
+  return { messages, isLoading, error, send };
 }
