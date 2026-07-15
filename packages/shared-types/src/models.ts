@@ -72,6 +72,12 @@ export interface Booking extends BaseEntity {
   paymentStatus: PaymentStatus;
 }
 
+export interface Message extends BaseEntity {
+  bookingId: string;
+  senderId: string;
+  text: string;
+}
+
 export interface CityRef {
   _id: string;
   nameAr: string;
