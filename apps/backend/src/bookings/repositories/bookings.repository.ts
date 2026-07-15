@@ -17,6 +17,20 @@ export class BookingsRepository {
       .exec();
   }
 
+  findByPassengerWithRide(passengerId: string) {
+    return this.bookingModel
+      .find({ passengerId, deletedAt: null })
+      .populate({
+        path: 'rideId',
+        populate: [
+          { path: 'departureCityId', select: 'nameAr nameFr nameEn' },
+          { path: 'destinationCityId', select: 'nameAr nameFr nameEn' },
+        ],
+      })
+      .sort({ createdAt: -1 })
+      .exec();
+  }
+
   findByRide(rideId: string) { return this.bookingModel.find({ rideId, deletedAt: null }).sort({ createdAt: -1 }).exec(); }
   findByRideIds(rideIds: string[]) { return this.bookingModel.find({ rideId: { $in: rideIds }, deletedAt: null }).sort({ createdAt: -1 }).exec(); }
   findById(id: string) { return this.bookingModel.findOne({ _id: id, deletedAt: null }).exec(); }

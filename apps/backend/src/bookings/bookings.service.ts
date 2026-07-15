@@ -14,7 +14,7 @@ export class BookingsService {
   ) {}
 
   findMine(passengerId: string) {
-    return this.bookingsRepository.findByPassenger(passengerId);
+    return this.bookingsRepository.findByPassengerWithRide(passengerId);
   }
 
   async findForDriver(driverId: string) {

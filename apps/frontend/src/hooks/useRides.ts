@@ -8,6 +8,12 @@ export interface RideSearchParams {
   date?: string;
 }
 
+const DEMO_ID_PREFIX = 'ride-';
+
+export function isDemoRide(id: string): boolean {
+  return id.startsWith(DEMO_ID_PREFIX);
+}
+
 async function fetchRides(params: RideSearchParams): Promise<RideWithDetails[]> {
   try {
     const { data } = await ridesApi.search(params);
@@ -15,7 +21,7 @@ async function fetchRides(params: RideSearchParams): Promise<RideWithDetails[]> 
       return data as RideWithDetails[];
     }
   } catch {
-    // fall through to demo data
+    // fall through to demo data when backend unreachable
   }
   return filterRides(DEMO_RIDES, params);
 }
@@ -31,14 +37,18 @@ export function useRide(id: string) {
   return useQuery({
     queryKey: ['ride', id],
     queryFn: async () => {
-      try {
-        const { data } = await ridesApi.getById(id);
-        const demo = DEMO_RIDES.find((r) => r._id === id);
-        return (demo ?? data) as RideWithDetails;
-      } catch {
+      // Demo rides are only shown when the backend is unreachable
+      if (isDemoRide(id)) {
         const demo = DEMO_RIDES.find((r) => r._id === id);
         if (!demo) throw new Error('Ride not found');
         return demo;
+      }
+
+      try {
+        const { data } = await ridesApi.getById(id);
+        return data as RideWithDetails;
+      } catch {
+        throw new Error('Ride not found');
       }
     },
     enabled: Boolean(id),

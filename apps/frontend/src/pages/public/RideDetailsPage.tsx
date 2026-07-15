@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@wasslni/shared-ui';
-import { useRide } from '@/hooks/useRides';
+import { useRide, isDemoRide } from '@/hooks/useRides';
 import { useAuthStore } from '@/store/auth.store';
-import { useBookingsStore } from '@/store/bookings.store';
+import { bookingsApi } from '@/api/bookings';
 import { formatDate, formatPrice } from '@/utils/format';
 import { Card, Badge, Spinner, Alert, Select } from '@/components/ui';
 
@@ -12,11 +13,26 @@ export function RideDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { data: ride, isLoading, isError } = useRide(id ?? '');
   const { isAuthenticated } = useAuthStore();
-  const addBooking = useBookingsStore((s) => s.addBooking);
   const [seats, setSeats] = useState(1);
   const [booked, setBooked] = useState(false);
+  const [bookingError, setBookingError] = useState<string | null>(null);
+
+  const bookingMutation = useMutation({
+    mutationFn: () => bookingsApi.create(ride!._id, seats),
+    onSuccess: () => {
+      setBookingError(null);
+      setBooked(true);
+      queryClient.invalidateQueries({ queryKey: ['bookings', 'mine'] });
+      queryClient.invalidateQueries({ queryKey: ['ride', id] });
+      queryClient.invalidateQueries({ queryKey: ['rides'] });
+    },
+    onError: () => {
+      setBookingError(t('ride.bookingError'));
+    },
+  });
 
   if (isLoading) {
     return (
@@ -42,8 +58,8 @@ export function RideDetailsPage() {
       navigate('/login', { state: { from: `/rides/${id}` } });
       return;
     }
-    addBooking(ride, seats);
-    setBooked(true);
+    setBookingError(null);
+    bookingMutation.mutate();
   };
 
   return (
@@ -56,6 +72,7 @@ export function RideDetailsPage() {
         {booked && (
           <Alert variant="success">{t('ride.bookingSuccess')}</Alert>
         )}
+        {bookingError && <Alert variant="error">{bookingError}</Alert>}
 
         <Card padding="lg">
           <div className="flex flex-wrap items-start justify-between gap-4">
@@ -113,29 +130,38 @@ export function RideDetailsPage() {
 
         {!booked && (
           <Card>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
-              <div className="flex-1">
-                <Select
-                  label={t('ride.bookSeats')}
-                  value={seats}
-                  onChange={(e) => setSeats(Number(e.target.value))}
+            {isDemoRide(ride._id) ? (
+              <p className="text-center text-sm text-slate-500">{t('ride.demoNotBookable')}</p>
+            ) : (
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
+                <div className="flex-1">
+                  <Select
+                    label={t('ride.bookSeats')}
+                    value={seats}
+                    onChange={(e) => setSeats(Number(e.target.value))}
+                  >
+                    {Array.from({ length: Math.min(ride.availableSeats, 4) }, (_, i) => i + 1).map(
+                      (n) => (
+                        <option key={n} value={n}>
+                          {n}
+                        </option>
+                      ),
+                    )}
+                  </Select>
+                </div>
+                <Button
+                  onClick={handleBook}
+                  disabled={bookingMutation.isPending}
+                  className="w-full py-3 text-base sm:w-auto sm:min-w-[200px]"
                 >
-                  {Array.from({ length: Math.min(ride.availableSeats, 4) }, (_, i) => i + 1).map(
-                    (n) => (
-                      <option key={n} value={n}>
-                        {n}
-                      </option>
-                    ),
-                  )}
-                </Select>
+                  {bookingMutation.isPending
+                    ? t('common.loading')
+                    : isAuthenticated
+                      ? t('ride.book')
+                      : t('ride.loginToBook')}
+                </Button>
               </div>
-              <Button
-                onClick={handleBook}
-                className="w-full py-3 text-base sm:w-auto sm:min-w-[200px]"
-              >
-                {isAuthenticated ? t('ride.book') : t('ride.loginToBook')}
-              </Button>
-            </div>
+            )}
           </Card>
         )}
       </div>

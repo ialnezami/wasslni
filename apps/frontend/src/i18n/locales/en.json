@@ -58,8 +58,10 @@
     "bookSeats": "Number of seats",
     "loginToBook": "Login to book",
     "bookingSuccess": "Booking request sent! Waiting for driver approval.",
+    "bookingError": "We could not send your booking request. Please try again.",
     "viewDetails": "View details",
     "notFound": "Ride not found",
+    "demoNotBookable": "This is a demo ride — booking is only available for real rides.",
     "status": {
       "scheduled": "Scheduled",
       "full": "Full",

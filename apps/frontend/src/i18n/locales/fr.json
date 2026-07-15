@@ -58,8 +58,10 @@
     "bookSeats": "Nombre de places",
     "loginToBook": "Connectez-vous pour réserver",
     "bookingSuccess": "Demande envoyée ! En attente d'approbation.",
+    "bookingError": "Impossible d'envoyer votre demande de réservation. Veuillez réessayer.",
     "viewDetails": "Voir détails",
     "notFound": "Trajet introuvable",
+    "demoNotBookable": "Ceci est un trajet de démonstration — la réservation est uniquement disponible pour les trajets réels.",
     "status": {
       "scheduled": "Programmé",
       "full": "Complet",

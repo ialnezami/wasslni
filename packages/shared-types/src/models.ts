@@ -72,6 +72,27 @@ export interface Booking extends BaseEntity {
   paymentStatus: PaymentStatus;
 }
 
+export interface CityRef {
+  _id: string;
+  nameAr: string;
+  nameFr: string;
+  nameEn?: string;
+}
+
+export interface RideRef {
+  _id: string;
+  date: string;
+  departureTime: string;
+  price: number;
+  status: RideStatus;
+  departureCityId: CityRef;
+  destinationCityId: CityRef;
+}
+
+export interface BookingWithRide extends Omit<Booking, 'rideId'> {
+  rideId: RideRef;
+}
+
 export interface Review extends BaseEntity {
   rideId: string;
   reviewerId: string;

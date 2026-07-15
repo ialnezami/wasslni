@@ -1,8 +1,8 @@
 import apiClient from './client';
-import type { Booking } from '@wasslni/shared-types';
+import type { Booking, BookingWithRide } from '@wasslni/shared-types';
 
 export const bookingsApi = {
-  getMine: () => apiClient.get<Booking[]>('/bookings/me'),
+  getMine: () => apiClient.get<BookingWithRide[]>('/bookings/me'),
   getForDriver: () => apiClient.get<Booking[]>('/bookings/driver'),
   forRide: (rideId: string) => apiClient.get<Booking[]>(`/bookings/ride/${rideId}`),
   create: (rideId: string, seats: number) => apiClient.post<Booking>('/bookings', { rideId, seats }),
