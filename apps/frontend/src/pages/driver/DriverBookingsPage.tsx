@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { BookingStatus } from '@wasslni/shared-types';
 import { Card, Spinner, Badge } from '@/components/ui';
 import { Button } from '@wasslni/shared-ui';
 import { EmptyState } from '@/components/EmptyState';
+import { ChatDrawer } from '@/components/ChatDrawer';
 import { bookingsApi } from '@/api/bookings';
 import type { Booking } from '@wasslni/shared-types';
 
@@ -25,6 +27,8 @@ export function DriverBookingsPage() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['bookings', 'driver'] }),
   });
 
+  const [chatBookingId, setChatBookingId] = useState<string | null>(null);
+
   const pending = allBookings.filter((b) => b.status === BookingStatus.Pending);
   const rest = allBookings.filter((b) => b.status !== BookingStatus.Pending);
 
@@ -42,6 +46,14 @@ export function DriverBookingsPage() {
   );
 
   return (
+    <>
+      {chatBookingId && (
+        <ChatDrawer
+          bookingId={chatBookingId}
+          otherPartyName={t('chat.passenger')}
+          onClose={() => setChatBookingId(null)}
+        />
+      )}
     <div className="space-y-6">
       <h2 className="text-xl font-semibold">{t('driver.bookingRequests')}</h2>
 
@@ -56,6 +68,12 @@ export function DriverBookingsPage() {
                   <p className="text-xs text-slate-400">{new Date(b.createdAt).toLocaleDateString('ar')}</p>
                 </div>
                 <div className="flex gap-2">
+                  <Button
+                    variant="secondary"
+                    onClick={() => setChatBookingId(b._id)}
+                  >
+                    {t('chat.open')}
+                  </Button>
                   <Button
                     onClick={() => acceptMutation.mutate(b._id)}
                     disabled={acceptMutation.isPending}
@@ -83,13 +101,22 @@ export function DriverBookingsPage() {
           {rest.map((b: Booking) => (
             <Card key={b._id}>
               <div className="flex items-center justify-between">
-                <p className="text-sm">{t('booking.seats', { count: b.seats })}</p>
-                <Badge variant={statusVariant(b.status)}>{t(`booking.status.${b.status}`)}</Badge>
+                <div>
+                  <p className="text-sm">{t('booking.seats', { count: b.seats })}</p>
+                  <Badge variant={statusVariant(b.status)}>{t(`booking.status.${b.status}`)}</Badge>
+                </div>
+                <Button
+                  variant="secondary"
+                  onClick={() => setChatBookingId(b._id)}
+                >
+                  {t('chat.open')}
+                </Button>
               </div>
             </Card>
           ))}
         </div>
       )}
     </div>
+    </>
   );
 }
