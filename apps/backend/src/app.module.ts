@@ -18,6 +18,7 @@ import { AdminModule } from './admin/admin.module';
 import { RecurringTripsModule } from './recurring-trips/recurring-trips.module';
 import { RecurringSubscriptionsModule } from './recurring-subscriptions/recurring-subscriptions.module';
 import { SchedulerModule } from './scheduler/scheduler.module';
+import { MessagesModule } from './messages/messages.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -44,6 +45,7 @@ import { AppService } from './app.service';
     RecurringTripsModule,
     RecurringSubscriptionsModule,
     SchedulerModule,
+    MessagesModule,
   ],
   controllers: [AppController],
   providers: [
