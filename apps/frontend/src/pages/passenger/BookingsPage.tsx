@@ -10,6 +10,7 @@ import { EmptyState } from '@/components/EmptyState';
 import { Button } from '@wasslni/shared-ui';
 import { bookingsApi } from '@/api/bookings';
 import { recurringSubscriptionsApi } from '@/api/recurringSubscriptions';
+import { ChatDrawer } from '@/components/ChatDrawer';
 
 const statusVariant: Record<BookingStatus, 'warning' | 'success' | 'danger' | 'default'> = {
   [BookingStatus.Pending]: 'warning',
@@ -78,6 +79,7 @@ export function BookingsPage() {
   const queryClient = useQueryClient();
   const [skipModalSubId, setSkipModalSubId] = useState<string | null>(null);
   const [cancellingId, setCancellingId] = useState<string | null>(null);
+  const [chatBookingId, setChatBookingId] = useState<string | null>(null);
 
   const { data: bookings = [], isLoading, isError } = useQuery<BookingWithRide[]>({
     queryKey: ['bookings', 'mine'],
@@ -137,6 +139,13 @@ export function BookingsPage() {
 
   return (
     <div className="space-y-6">
+      {chatBookingId && (
+        <ChatDrawer
+          bookingId={chatBookingId}
+          otherPartyName={t('chat.driver')}
+          onClose={() => setChatBookingId(null)}
+        />
+      )}
       {skipModalSubId && (
         <SkipDateModal subscriptionId={skipModalSubId} onClose={() => setSkipModalSubId(null)} />
       )}
@@ -174,6 +183,12 @@ export function BookingsPage() {
                     <Link to={`/rides/${ride._id}`}>
                       <Button variant="secondary">{t('ride.viewDetails')}</Button>
                     </Link>
+                    <Button
+                      variant="secondary"
+                      onClick={() => setChatBookingId(booking._id)}
+                    >
+                      {t('chat.open')}
+                    </Button>
                     {canCancel && (
                       <Button
                         variant="ghost"

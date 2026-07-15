@@ -158,5 +158,16 @@
   "footer": {
     "rights": "All rights reserved",
     "tagline": "Carpooling platform for the Arab world"
+  },
+  "chat": {
+    "title": "Chat",
+    "placeholder": "Type a message...",
+    "send": "Send",
+    "empty": "No messages yet. Start the conversation!",
+    "open": "Chat",
+    "driver": "Driver",
+    "passenger": "Passenger",
+    "errorLoad": "Failed to load messages",
+    "errorSend": "Failed to send message"
   }
 }

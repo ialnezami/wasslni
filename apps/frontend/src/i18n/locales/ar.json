@@ -269,5 +269,16 @@
     },
     "approveSubscription": "قبول",
     "rejectSubscription": "رفض"
+  },
+  "chat": {
+    "title": "المحادثة",
+    "placeholder": "اكتب رسالة...",
+    "send": "إرسال",
+    "empty": "لا توجد رسائل بعد. ابدأ المحادثة!",
+    "open": "محادثة",
+    "driver": "السائق",
+    "passenger": "الراكب",
+    "errorLoad": "تعذر تحميل الرسائل",
+    "errorSend": "تعذر إرسال الرسالة"
   }
 }

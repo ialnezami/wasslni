@@ -158,5 +158,16 @@
   "footer": {
     "rights": "Tous droits réservés",
     "tagline": "Plateforme de covoiturage pour le monde arabe"
+  },
+  "chat": {
+    "title": "Conversation",
+    "placeholder": "Écrire un message...",
+    "send": "Envoyer",
+    "empty": "Aucun message pour l'instant. Commencez la conversation !",
+    "open": "Chat",
+    "driver": "Conducteur",
+    "passenger": "Passager",
+    "errorLoad": "Impossible de charger les messages",
+    "errorSend": "Impossible d'envoyer le message"
   }
 }
