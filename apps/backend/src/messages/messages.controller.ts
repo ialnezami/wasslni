@@ -13,6 +13,11 @@ import { MessagesService } from './messages.service';
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
 
+  @Get('conversations')
+  getConversations(@CurrentUser() user: AuthUser) {
+    return this.messagesService.getConversations(user.userId);
+  }
+
   @Get(':bookingId')
   getHistory(
     @Param('bookingId', ParseMongoIdPipe) bookingId: string,

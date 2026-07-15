@@ -11,6 +11,7 @@ export function UserLayout() {
     { to: '/app/booking-requests', label: t('user.bookingRequests') },
     { to: '/app/bookings', label: t('user.myBookings') },
     { to: '/app/vehicles', label: t('user.vehicles') },
+    { to: '/app/chats', label: t('chat.inbox') },
     { to: '/app/notifications', label: t('user.notifications') },
     { to: '/app/profile', label: t('user.profile') },
     { to: '/app/reviews', label: t('user.reviews') },

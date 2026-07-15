@@ -30,4 +30,29 @@ export class MessagesService {
       throw new ForbiddenException('You are not a participant of this booking');
     }
   }
+
+  async getConversations(userId: string) {
+    const bookings = await this.bookingsRepository.findAllForUserWithRide(userId);
+    if (bookings.length === 0) return [];
+
+    const bookingIds = bookings.map((b: any) => b._id);
+    const lastMessages = await this.messagesRepository.findLastMessagesByBookingIds(bookingIds);
+    const lastMsgMap = new Map(lastMessages.map((m: any) => [String(m._id), m.lastMessage]));
+
+    return bookings.map((booking: any) => ({
+      bookingId: String(booking._id),
+      status: booking.status,
+      seats: booking.seats,
+      isPassenger: String(booking.passengerId) === userId,
+      ride: {
+        _id: String(booking.ride._id),
+        date: booking.ride.date,
+        departureTime: booking.ride.departureTime,
+        departureCity: booking.departureCity ?? null,
+        destinationCity: booking.destinationCity ?? null,
+      },
+      lastMessage: lastMsgMap.get(String(booking._id)) ?? null,
+      createdAt: booking.createdAt,
+    }));
+  }
 }

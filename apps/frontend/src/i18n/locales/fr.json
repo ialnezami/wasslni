@@ -117,6 +117,10 @@
     "myRides": "Mes trajets",
     "createRide": "Publier un trajet",
     "bookingRequests": "Demandes de réservation",
+    "pendingRequests": "Demandes en attente",
+    "allRequests": "Toutes les demandes",
+    "accept": "Accepter",
+    "reject": "Refuser",
     "vehicles": "Mes véhicules",
     "publishedRides": "Trajets publiés",
     "noRides": "Aucun trajet publié",
@@ -147,6 +151,7 @@
   "common": {
     "loading": "Chargement...",
     "error": "Une erreur est survenue",
+    "errorLoading": "Impossible de charger les données",
     "back": "Retour",
     "save": "Enregistrer",
     "cancel": "Annuler",
@@ -164,10 +169,17 @@
     "placeholder": "Écrire un message...",
     "send": "Envoyer",
     "empty": "Aucun message pour l'instant. Commencez la conversation !",
-    "open": "Chat",
+    "open": "Ouvrir la conversation",
     "driver": "Conducteur",
     "passenger": "Passager",
     "errorLoad": "Impossible de charger les messages",
-    "errorSend": "Impossible d'envoyer le message"
+    "errorSend": "Impossible d'envoyer le message",
+    "inbox": "Messages",
+    "noConversations": "Aucune conversation",
+    "noConversationsHint": "Les conversations apparaîtront ici après une réservation",
+    "noMessages": "Aucun message pour l'instant",
+    "asPassenger": "Passager",
+    "asDriver": "Conducteur",
+    "you": "Vous"
   }
 }

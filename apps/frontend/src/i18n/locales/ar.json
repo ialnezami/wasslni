@@ -178,6 +178,10 @@
     "myRides": "رحلاتي",
     "createRide": "نشر رحلة جديدة",
     "bookingRequests": "طلبات الحجز",
+    "pendingRequests": "الطلبات المعلّقة",
+    "allRequests": "جميع الطلبات",
+    "accept": "قبول",
+    "reject": "رفض",
     "vehicles": "مركباتي",
     "publishedRides": "رحلات منشورة",
     "noRides": "لم تنشر أي رحلة بعد",
@@ -217,6 +221,7 @@
   "common": {
     "loading": "جاري التحميل...",
     "error": "حدث خطأ",
+    "errorLoading": "تعذر تحميل البيانات",
     "back": "رجوع",
     "save": "حفظ",
     "cancel": "إلغاء",
@@ -275,10 +280,17 @@
     "placeholder": "اكتب رسالة...",
     "send": "إرسال",
     "empty": "لا توجد رسائل بعد. ابدأ المحادثة!",
-    "open": "محادثة",
+    "open": "فتح المحادثة",
     "driver": "السائق",
     "passenger": "الراكب",
     "errorLoad": "تعذر تحميل الرسائل",
-    "errorSend": "تعذر إرسال الرسالة"
+    "errorSend": "تعذر إرسال الرسالة",
+    "inbox": "الرسائل",
+    "noConversations": "لا توجد محادثات بعد",
+    "noConversationsHint": "ستظهر المحادثات هنا بعد إتمام حجز",
+    "noMessages": "لا توجد رسائل بعد",
+    "asPassenger": "راكب",
+    "asDriver": "سائق",
+    "you": "أنت"
   }
 }

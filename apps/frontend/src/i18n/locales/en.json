@@ -117,6 +117,10 @@
     "myRides": "My rides",
     "createRide": "Publish new ride",
     "bookingRequests": "Booking requests",
+    "pendingRequests": "Pending requests",
+    "allRequests": "All requests",
+    "accept": "Accept",
+    "reject": "Reject",
     "vehicles": "My vehicles",
     "publishedRides": "Published rides",
     "noRides": "You haven't published any rides yet",
@@ -147,6 +151,7 @@
   "common": {
     "loading": "Loading...",
     "error": "Something went wrong",
+    "errorLoading": "Failed to load data",
     "back": "Back",
     "save": "Save",
     "cancel": "Cancel",
@@ -164,10 +169,17 @@
     "placeholder": "Type a message...",
     "send": "Send",
     "empty": "No messages yet. Start the conversation!",
-    "open": "Chat",
+    "open": "Open chat",
     "driver": "Driver",
     "passenger": "Passenger",
     "errorLoad": "Failed to load messages",
-    "errorSend": "Failed to send message"
+    "errorSend": "Failed to send message",
+    "inbox": "Messages",
+    "noConversations": "No conversations yet",
+    "noConversationsHint": "Conversations will appear here once a booking is made",
+    "noMessages": "No messages yet",
+    "asPassenger": "Passenger",
+    "asDriver": "Driver",
+    "you": "You"
   }
 }

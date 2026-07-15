@@ -26,6 +26,7 @@ import { UsersPage } from '@/pages/admin/UsersPage';
 import { AdminReportsPage } from '@/pages/admin/AdminReportsPage';
 import { AdminReviewsPage } from '@/pages/admin/AdminReviewsPage';
 import { PlaceholderPage } from '@/pages/PlaceholderPage';
+import { ChatsPage } from '@/pages/ChatsPage';
 
 export function AppRoutes() {
   return (
@@ -59,6 +60,7 @@ export function AppRoutes() {
             <Route path="notifications" element={<NotificationsPage />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="reviews" element={<ReviewsPage />} />
+            <Route path="chats" element={<ChatsPage />} />
           </Route>
         </Route>
 

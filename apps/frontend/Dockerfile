@@ -9,7 +9,10 @@ COPY packages/shared-config/package.json ./packages/shared-config/
 COPY apps/backend/package.json           ./apps/backend/
 COPY apps/frontend/package.json          ./apps/frontend/
 
-RUN npm ci --include=dev
+RUN npm config set fetch-retries 5 \
+ && npm config set fetch-retry-mintimeout 20000 \
+ && npm config set fetch-retry-maxtimeout 120000 \
+ && npm ci --include=dev
 
 COPY packages/ ./packages/
 COPY apps/frontend/ ./apps/frontend/
