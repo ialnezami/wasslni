@@ -37,7 +37,7 @@ export class ChatGateway implements OnGatewayConnection {
       const token = socket.handshake.auth?.token as string | undefined;
       if (!token) throw new Error('No token');
       const payload = await this.jwtService.verifyAsync<{ sub: string }>(token, {
-        secret: this.configService.get<string>('jwt.secret'),
+        secret: this.configService.get<string>('app.jwt.accessSecret'),
       });
       socket.data.userId = payload.sub;
     } catch {
@@ -80,6 +80,10 @@ export class ChatGateway implements OnGatewayConnection {
       const errors = await validate(dto);
       if (errors.length > 0) {
         socket.emit('error', { message: 'Invalid payload' });
+        return;
+      }
+      if (!socket.rooms.has(`booking-${dto.bookingId}`)) {
+        socket.emit('error', { message: 'Join the booking room first' });
         return;
       }
       const message = await this.messagesService.createMessage(

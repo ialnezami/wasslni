@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { AuthUser } from '@wasslni/shared-types';
+import { updateSocketAuth } from '@/lib/socket';
 
 interface AuthState {
   user: AuthUser | null;
@@ -21,8 +22,10 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       setAuth: (user, accessToken, refreshToken) =>
         set({ user, accessToken, refreshToken, isAuthenticated: true }),
-      setAccessToken: (accessToken, refreshToken) =>
-        set((s) => ({ accessToken, refreshToken: refreshToken ?? s.refreshToken })),
+      setAccessToken: (accessToken, refreshToken) => {
+        set((s) => ({ accessToken, refreshToken: refreshToken ?? s.refreshToken }));
+        if (accessToken) updateSocketAuth(accessToken);
+      },
       logout: () =>
         set({ user: null, accessToken: null, refreshToken: null, isAuthenticated: false }),
     }),
