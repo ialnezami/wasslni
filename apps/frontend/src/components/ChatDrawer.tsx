@@ -41,9 +41,10 @@ export function ChatDrawer({ bookingId, otherPartyName, onClose }: ChatDrawerPro
 
   return (
     <>
-      <div className="fixed inset-0 z-40 bg-black/30" onClick={onClose} />
+      <div className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="fixed inset-y-0 end-0 z-50 flex w-full max-w-sm flex-col bg-white shadow-xl dark:bg-slate-900">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="flex h-[75vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-white shadow-2xl dark:bg-slate-900">
         <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-700">
           <h2 className="font-semibold text-slate-900 dark:text-slate-100">{otherPartyName}</h2>
           <button
@@ -108,6 +109,7 @@ export function ChatDrawer({ bookingId, otherPartyName, onClose }: ChatDrawerPro
           <Button onClick={handleSend} disabled={!text.trim()}>
             {t('chat.send')}
           </Button>
+        </div>
         </div>
       </div>
     </>
