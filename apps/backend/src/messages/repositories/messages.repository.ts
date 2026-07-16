@@ -10,8 +10,9 @@ export class MessagesRepository {
   ) {}
 
   findByBooking(bookingId: string) {
+    // bookingId may be stored as string or ObjectId — match both
     return this.messageModel
-      .find({ bookingId, deletedAt: null })
+      .find({ $or: [{ bookingId }, { bookingId: new Types.ObjectId(bookingId) }], deletedAt: null })
       .sort({ createdAt: 1 })
       .exec();
   }
@@ -22,9 +23,10 @@ export class MessagesRepository {
 
   markAllRead(bookingId: string, userId: string) {
     const uid = new Types.ObjectId(userId);
+    // Match bookingId stored as either string or ObjectId
     return this.messageModel.updateMany(
       {
-        bookingId: new Types.ObjectId(bookingId),
+        $or: [{ bookingId }, { bookingId: new Types.ObjectId(bookingId) }],
         senderId: { $ne: uid },
         readBy: { $nin: [uid] },
         deletedAt: null,
@@ -35,26 +37,44 @@ export class MessagesRepository {
 
   findLastMessagesByBookingIds(bookingIds: Types.ObjectId[]) {
     if (bookingIds.length === 0) return Promise.resolve([]);
+    // Some messages store bookingId as string; normalise to string for comparison
+    const idStrs = bookingIds.map((id) => id.toString());
     return this.messageModel.aggregate([
-      { $match: { bookingId: { $in: bookingIds }, deletedAt: null } },
+      {
+        $match: {
+          $expr: { $in: [{ $toString: '$bookingId' }, idStrs] },
+          deletedAt: null,
+        },
+      },
       { $sort: { createdAt: -1 } },
-      { $group: { _id: '$bookingId', lastMessage: { $first: '$$ROOT' } } },
+      {
+        $group: {
+          _id: { $toString: '$bookingId' },
+          lastMessage: { $first: '$$ROOT' },
+        },
+      },
     ]);
   }
 
   countUnreadByBookingIds(bookingIds: Types.ObjectId[], userId: string) {
     if (bookingIds.length === 0) return Promise.resolve([]);
     const uid = new Types.ObjectId(userId);
+    const idStrs = bookingIds.map((id) => id.toString());
     return this.messageModel.aggregate([
       {
         $match: {
-          bookingId: { $in: bookingIds },
+          $expr: { $in: [{ $toString: '$bookingId' }, idStrs] },
           senderId: { $ne: uid },
           readBy: { $nin: [uid] },
           deletedAt: null,
         },
       },
-      { $group: { _id: '$bookingId', unreadCount: { $sum: 1 } } },
+      {
+        $group: {
+          _id: { $toString: '$bookingId' },
+          unreadCount: { $sum: 1 },
+        },
+      },
     ]);
   }
 }
