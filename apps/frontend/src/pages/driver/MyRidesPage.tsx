@@ -234,13 +234,20 @@ export function MyRidesPage() {
                           </div>
                         </div>
                       ) : (
-                        <Button
-                          variant="ghost"
-                          className="text-sm text-red-500 hover:text-red-700"
-                          onClick={() => { setCancellingRideId(ride._id); setCancelReason(''); }}
-                        >
-                          {t('driver.cancelRide')}
-                        </Button>
+                        <div className="flex gap-2">
+                          <Link to={`/app/my-rides/${ride._id}/edit`}>
+                            <Button variant="secondary" className="text-sm px-3 py-1.5">
+                              {t('driver.editRide')}
+                            </Button>
+                          </Link>
+                          <Button
+                            variant="ghost"
+                            className="text-sm text-red-500 hover:text-red-700"
+                            onClick={() => { setCancellingRideId(ride._id); setCancelReason(''); }}
+                          >
+                            {t('driver.cancelRide')}
+                          </Button>
+                        </div>
                       )}
                     </div>
                   )}

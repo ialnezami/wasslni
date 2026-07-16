@@ -27,6 +27,8 @@ import { AdminReportsPage } from '@/pages/admin/AdminReportsPage';
 import { AdminReviewsPage } from '@/pages/admin/AdminReviewsPage';
 import { PlaceholderPage } from '@/pages/PlaceholderPage';
 import { ChatsPage } from '@/pages/ChatsPage';
+import { EditRidePage } from '@/pages/driver/EditRidePage';
+import { CitiesPage } from '@/pages/admin/CitiesPage';
 
 export function AppRoutes() {
   return (
@@ -54,6 +56,7 @@ export function AppRoutes() {
             <Route index element={<DashboardPage />} />
             <Route path="my-rides" element={<MyRidesPage />} />
             <Route path="create-ride" element={<CreateRidePage />} />
+            <Route path="my-rides/:id/edit" element={<EditRidePage />} />
             <Route path="booking-requests" element={<DriverBookingsPage />} />
             <Route path="bookings" element={<BookingsPage />} />
             <Route path="vehicles" element={<VehiclesPage />} />
@@ -68,7 +71,7 @@ export function AppRoutes() {
           <Route path="admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboardPage />} />
             <Route path="users" element={<UsersPage />} />
-            <Route path="cities" element={<PlaceholderPage title="Cities" />} />
+            <Route path="cities" element={<CitiesPage />} />
             <Route path="trips" element={<PlaceholderPage title="Trips" />} />
             <Route path="reports" element={<AdminReportsPage />} />
             <Route path="reviews" element={<AdminReviewsPage />} />
