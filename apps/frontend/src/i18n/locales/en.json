@@ -168,7 +168,10 @@
     "reviewee": "Reviewee",
     "deleteReport": "Delete Report",
     "noReports": "No reports",
-    "noReviews": "No reviews"
+    "noReviews": "No reviews",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "inactive": "Inactive"
   },
   "common": {
     "loading": "Loading...",

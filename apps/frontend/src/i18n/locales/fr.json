@@ -168,7 +168,10 @@
     "reviewee": "Évalué",
     "deleteReport": "Supprimer le signalement",
     "noReports": "Aucun signalement",
-    "noReviews": "Aucun avis"
+    "noReviews": "Aucun avis",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "inactive": "Inactif"
   },
   "common": {
     "loading": "Chargement...",

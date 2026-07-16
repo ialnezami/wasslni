@@ -50,14 +50,14 @@ function CityFormFields({
         <Input
           type="number"
           step="any"
-          label="Latitude"
+          label={t('admin.latitude')}
           error={form.formState.errors.lat?.message}
           {...form.register('lat', { valueAsNumber: true })}
         />
         <Input
           type="number"
           step="any"
-          label="Longitude"
+          label={t('admin.longitude')}
           error={form.formState.errors.lng?.message}
           {...form.register('lng', { valueAsNumber: true })}
         />
@@ -173,7 +173,7 @@ function CityRow({ city }: { city: City }) {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          {!city.isActive && <Badge variant="default">Inactive</Badge>}
+          {!city.isActive && <Badge variant="default">{t('admin.inactive')}</Badge>}
           <button
             onClick={() => setEditing(true)}
             className="rounded-lg border border-slate-200 px-3 py-1 text-sm hover:bg-slate-50"
