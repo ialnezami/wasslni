@@ -26,8 +26,18 @@ export function DriverBookingsPage() {
     mutationFn: bookingsApi.reject,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['bookings', 'driver'] }),
   });
+  const cancelByDriverMutation = useMutation({
+    mutationFn: ({ id, reason }: { id: string; reason: string }) => bookingsApi.cancelByDriver(id, reason || undefined),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['bookings', 'driver'] });
+      setCancellingBookingId(null);
+      setCancelReason('');
+    },
+  });
 
   const [chatBookingId, setChatBookingId] = useState<string | null>(null);
+  const [cancellingBookingId, setCancellingBookingId] = useState<string | null>(null);
+  const [cancelReason, setCancelReason] = useState('');
 
   const pending = allBookings.filter((b) => b.status === BookingStatus.Pending);
   const rest = allBookings.filter((b) => b.status !== BookingStatus.Pending);
@@ -105,13 +115,44 @@ export function DriverBookingsPage() {
                   <p className="text-sm">{t('booking.seats', { count: b.seats })}</p>
                   <Badge variant={statusVariant(b.status)}>{t(`booking.status.${b.status}`)}</Badge>
                 </div>
-                <Button
-                  variant="secondary"
-                  onClick={() => setChatBookingId(b._id)}
-                >
-                  {t('chat.open')}
-                </Button>
+                <div className="flex gap-2">
+                  <Button variant="secondary" onClick={() => setChatBookingId(b._id)}>
+                    {t('chat.open')}
+                  </Button>
+                  {b.status === BookingStatus.Accepted && (
+                    <Button
+                      className="bg-red-50 px-3 py-1.5 text-sm text-red-600 hover:bg-red-100"
+                      onClick={() => { setCancellingBookingId(b._id); setCancelReason(''); }}
+                    >
+                      {t('driver.cancelBooking')}
+                    </Button>
+                  )}
+                </div>
               </div>
+              {cancellingBookingId === b._id && (
+                <div className="mt-3 space-y-2 border-t border-slate-100 pt-3">
+                  <textarea
+                    className="w-full rounded-md border border-slate-200 p-2 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                    rows={2}
+                    maxLength={500}
+                    placeholder={t('driver.cancelReasonPlaceholder')}
+                    value={cancelReason}
+                    onChange={(e) => setCancelReason(e.target.value)}
+                  />
+                  <div className="flex gap-2">
+                    <Button
+                      className="bg-red-600 px-3 py-1.5 text-sm text-white hover:bg-red-700"
+                      onClick={() => cancelByDriverMutation.mutate({ id: b._id, reason: cancelReason })}
+                      disabled={cancelByDriverMutation.isPending}
+                    >
+                      {t('driver.confirmCancel')}
+                    </Button>
+                    <Button variant="ghost" onClick={() => setCancellingBookingId(null)}>
+                      {t('common.back')}
+                    </Button>
+                  </div>
+                </div>
+              )}
             </Card>
           ))}
         </div>

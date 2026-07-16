@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
@@ -11,7 +12,7 @@ import { recurringSubscriptionsApi } from '@/api/recurringSubscriptions';
 import { DEMO_RIDES } from '@/data/demo';
 import type { RideWithDetails } from '@/data/demo';
 import type { RecurringSubscription, RecurringTrip } from '@wasslni/shared-types';
-import { RecurringSubscriptionStatus, RecurringTripStatus } from '@wasslni/shared-types';
+import { RecurringSubscriptionStatus, RecurringTripStatus, RideStatus } from '@wasslni/shared-types';
 
 const tripStatusVariant: Record<RecurringTripStatus, 'success' | 'warning' | 'default'> = {
   [RecurringTripStatus.Active]: 'success',
@@ -131,6 +132,18 @@ function RecurringTripCard({ trip }: { trip: RecurringTrip }) {
 
 export function MyRidesPage() {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const [cancellingRideId, setCancellingRideId] = useState<string | null>(null);
+  const [cancelReason, setCancelReason] = useState('');
+
+  const cancelRideMutation = useMutation({
+    mutationFn: ({ id, reason }: { id: string; reason: string }) => ridesApi.cancel(id, reason || undefined),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['rides', 'mine'] });
+      setCancellingRideId(null);
+      setCancelReason('');
+    },
+  });
 
   const { data: rides = [], isLoading: ridesLoading } = useQuery({
     queryKey: ['rides', 'mine'],
@@ -191,7 +204,48 @@ export function MyRidesPage() {
                 actionTo="/driver/rides/new"
               />
             ) : (
-              rides.map((ride) => <RideCard key={ride._id} ride={ride} />)
+              rides.map((ride) => (
+                <div key={ride._id} className="space-y-2">
+                  <RideCard ride={ride} />
+                  {(ride as unknown as { status: string }).status === RideStatus.Scheduled && (
+                    <div className="px-1">
+                      {cancellingRideId === ride._id ? (
+                        <div className="space-y-2 rounded-lg border border-red-100 bg-red-50 p-3">
+                          <p className="text-sm font-medium text-red-700">{t('driver.cancelRideConfirm')}</p>
+                          <textarea
+                            className="w-full rounded-md border border-red-200 bg-white p-2 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-red-300"
+                            rows={2}
+                            maxLength={500}
+                            placeholder={t('driver.cancelReasonPlaceholder')}
+                            value={cancelReason}
+                            onChange={(e) => setCancelReason(e.target.value)}
+                          />
+                          <div className="flex gap-2">
+                            <Button
+                              className="bg-red-600 px-3 py-1.5 text-sm text-white hover:bg-red-700"
+                              onClick={() => cancelRideMutation.mutate({ id: ride._id, reason: cancelReason })}
+                              disabled={cancelRideMutation.isPending}
+                            >
+                              {t('driver.confirmCancel')}
+                            </Button>
+                            <Button variant="ghost" onClick={() => setCancellingRideId(null)}>
+                              {t('common.back')}
+                            </Button>
+                          </div>
+                        </div>
+                      ) : (
+                        <Button
+                          variant="ghost"
+                          className="text-sm text-red-500 hover:text-red-700"
+                          onClick={() => { setCancellingRideId(ride._id); setCancelReason(''); }}
+                        >
+                          {t('driver.cancelRide')}
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))
             )}
           </div>
         </>

@@ -27,6 +27,10 @@ export class UpdateRideDto {
   @IsOptional() @IsString() @MaxLength(1000) description?: string;
 }
 
+export class CancelRideDto {
+  @IsOptional() @IsString() @MaxLength(500) reason?: string;
+}
+
 export class SearchRidesDto {
   @IsOptional() @IsMongoId() departureCityId?: string;
   @IsOptional() @IsMongoId() destinationCityId?: string;

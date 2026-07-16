@@ -1,7 +1,7 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { BookingStatus, NotificationType, RideStatus } from '@wasslni/shared-types';
 import { BookingsRepository } from './repositories/bookings.repository';
-import { CreateBookingDto } from './dto/bookings.dto';
+import { CancelByDriverDto, CreateBookingDto } from './dto/bookings.dto';
 import { RidesRepository } from '../rides/repositories/rides.repository';
 import { NotificationsService } from '../notifications/notifications.service';
 
@@ -69,6 +69,21 @@ export class BookingsService {
     if (![BookingStatus.Pending, BookingStatus.Accepted].includes(booking.status)) throw new BadRequestException('Booking cannot be cancelled');
     if (booking.status === BookingStatus.Accepted) await this.ridesRepository.releaseSeats(String(booking.rideId), booking.seats);
     return this.bookingsRepository.updateStatus(id, BookingStatus.Cancelled);
+  }
+
+  async cancelByDriver(id: string, driverId: string, dto: CancelByDriverDto) {
+    const booking = await this.bookingForDriver(id, driverId);
+    if (![BookingStatus.Pending, BookingStatus.Accepted].includes(booking.status)) throw new BadRequestException('Booking cannot be cancelled');
+    if (booking.status === BookingStatus.Accepted) await this.ridesRepository.releaseSeats(String(booking.rideId), booking.seats);
+    const updated = await this.bookingsRepository.updateStatus(id, BookingStatus.Cancelled, dto.reason);
+    await this.notificationsService.create(
+      String(booking.passengerId),
+      NotificationType.BookingCancelledByDriver,
+      'Booking cancelled by driver',
+      dto.reason ? `Your booking was cancelled by the driver: ${dto.reason}` : 'Your booking was cancelled by the driver.',
+      { bookingId: id, rideId: String(booking.rideId) },
+    );
+    return updated;
   }
 
   private async bookingForDriver(id: string, driverId: string) {

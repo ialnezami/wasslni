@@ -4,7 +4,7 @@ import type { AuthUser } from '@wasslni/shared-types';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { BookingsService } from './bookings.service';
-import { CreateBookingDto } from './dto/bookings.dto';
+import { CancelByDriverDto, CreateBookingDto } from './dto/bookings.dto';
 
 @ApiTags('bookings')
 @ApiBearerAuth()
@@ -35,4 +35,6 @@ export class BookingsController {
   reject(@Param('id') id: string, @CurrentUser() user: AuthUser) { return this.bookingsService.reject(id, user.userId); }
   @Post(':id/cancel')
   cancel(@Param('id') id: string, @CurrentUser() user: AuthUser) { return this.bookingsService.cancel(id, user.userId); }
+  @Post(':id/cancel-by-driver')
+  cancelByDriver(@Param('id') id: string, @CurrentUser() user: AuthUser, @Body() dto: CancelByDriverDto) { return this.bookingsService.cancelByDriver(id, user.userId, dto); }
 }

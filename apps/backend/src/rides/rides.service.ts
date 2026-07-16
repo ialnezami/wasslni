@@ -1,12 +1,19 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { RideStatus, UserRole } from '@wasslni/shared-types';
+import { NotificationType, RideStatus, UserRole } from '@wasslni/shared-types';
 import { RidesRepository } from './repositories/rides.repository';
-import { CreateRideDto, SearchRidesDto, UpdateRideDto } from './dto/rides.dto';
+import { CancelRideDto, CreateRideDto, SearchRidesDto, UpdateRideDto } from './dto/rides.dto';
 import { VehiclesRepository } from '../vehicles/repositories/vehicles.repository';
+import { BookingsRepository } from '../bookings/repositories/bookings.repository';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Injectable()
 export class RidesService {
-  constructor(private readonly ridesRepository: RidesRepository, private readonly vehiclesRepository: VehiclesRepository) {}
+  constructor(
+    private readonly ridesRepository: RidesRepository,
+    private readonly vehiclesRepository: VehiclesRepository,
+    private readonly bookingsRepository: BookingsRepository,
+    private readonly notificationsService: NotificationsService,
+  ) {}
 
   search(query: SearchRidesDto) {
     const filter: Record<string, unknown> = { status: RideStatus.Scheduled };
@@ -45,10 +52,26 @@ export class RidesService {
     return updated;
   }
 
-  async cancel(id: string, userId: string, role: UserRole) {
+  async cancel(id: string, userId: string, role: UserRole, dto: CancelRideDto = {}) {
     const ride = await this.findOne(id);
     if (role !== UserRole.Admin && String(ride.driverId) !== userId) throw new ForbiddenException('You do not own this ride');
     if ([RideStatus.Completed, RideStatus.Cancelled].includes(ride.status)) throw new BadRequestException('Ride cannot be cancelled');
+    const activeBookings = await this.bookingsRepository.findActiveByRide(id);
+    await this.bookingsRepository.cancelAllActiveByRide(id, dto.reason);
+    const notifyMessage = dto.reason
+      ? `Your trip was cancelled by the driver: ${dto.reason}`
+      : 'Your trip was cancelled by the driver.';
+    await Promise.all(
+      activeBookings.map((b) =>
+        this.notificationsService.create(
+          String(b.passengerId),
+          NotificationType.RideCancelled,
+          'Trip cancelled',
+          notifyMessage,
+          { rideId: id, bookingId: String(b._id) },
+        ),
+      ),
+    );
     return this.ridesRepository.updateById(id, { status: RideStatus.Cancelled } as Partial<import('./schemas/ride.schema').Ride>);
   }
 }

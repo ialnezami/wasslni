@@ -27,6 +27,7 @@ export enum NotificationType {
   BookingReceived = 'BookingReceived',
   BookingApproved = 'BookingApproved',
   BookingRejected = 'BookingRejected',
+  BookingCancelledByDriver = 'BookingCancelledByDriver',
   RideCancelled = 'RideCancelled',
   RideReminder = 'RideReminder',
   RecurringSubscriptionReceived = 'RecurringSubscriptionReceived',

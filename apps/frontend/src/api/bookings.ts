@@ -9,4 +9,5 @@ export const bookingsApi = {
   accept: (id: string) => apiClient.post<Booking>(`/bookings/${id}/accept`),
   reject: (id: string) => apiClient.post<Booking>(`/bookings/${id}/reject`),
   cancel: (id: string) => apiClient.post<Booking>(`/bookings/${id}/cancel`),
+  cancelByDriver: (id: string, reason?: string) => apiClient.post<Booking>(`/bookings/${id}/cancel-by-driver`, { reason }),
 };

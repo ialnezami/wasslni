@@ -26,5 +26,5 @@ export const ridesApi = {
   getMine: () => apiClient.get<Ride[]>('/rides/me'),
   create: (payload: CreateRidePayload) => apiClient.post<Ride>('/rides', payload),
   update: (id: string, payload: Partial<CreateRidePayload>) => apiClient.patch<Ride>(`/rides/${id}`, payload),
-  cancel: (id: string) => apiClient.post<Ride>(`/rides/${id}/cancel`),
+  cancel: (id: string, reason?: string) => apiClient.post<Ride>(`/rides/${id}/cancel`, { reason }),
 };

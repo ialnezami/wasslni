@@ -19,6 +19,9 @@ export class Booking extends BaseDocument {
 
   @Prop({ required: true, enum: PaymentStatus, default: PaymentStatus.Pending })
   paymentStatus!: PaymentStatus;
+
+  @Prop({ required: false, maxlength: 500 })
+  cancellationReason?: string;
 }
 
 export const BookingSchema = SchemaFactory.createForClass(Booking);

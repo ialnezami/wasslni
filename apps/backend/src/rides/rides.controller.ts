@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { RidesService } from './rides.service';
-import { CreateRideDto, SearchRidesDto, UpdateRideDto } from './dto/rides.dto';
+import { CancelRideDto, CreateRideDto, SearchRidesDto, UpdateRideDto } from './dto/rides.dto';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import type { AuthUser } from '@wasslni/shared-types';
@@ -35,5 +35,5 @@ export class RidesController {
 
   @UseGuards(JwtAuthGuard)
   @Post(':id/cancel')
-  cancel(@Param('id') id: string, @CurrentUser() user: AuthUser) { return this.ridesService.cancel(id, user.userId, user.role); }
+  cancel(@Param('id') id: string, @CurrentUser() user: AuthUser, @Body() dto: CancelRideDto) { return this.ridesService.cancel(id, user.userId, user.role, dto); }
 }
