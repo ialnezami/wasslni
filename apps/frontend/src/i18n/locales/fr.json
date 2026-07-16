@@ -133,7 +133,14 @@
     "vehiclePlate": "Plaque d'immatriculation",
     "noVehicles": "Aucun véhicule ajouté",
     "addVehicle": "Ajouter un véhicule",
-    "selectVehicle": "Choisir un véhicule"
+    "selectVehicle": "Choisir un véhicule",
+    "editRide": "Modifier le trajet",
+    "editRideBlocked": "Modification impossible — des passagers ont des réservations confirmées",
+    "cancelRide": "Annuler le trajet",
+    "cancelRideConfirm": "Êtes-vous sûr de vouloir annuler ce trajet ?",
+    "cancelReasonPlaceholder": "Raison d'annulation (optionnelle)",
+    "confirmCancel": "Confirmer l'annulation",
+    "noVehiclesHint": "Vous devez d'abord ajouter un véhicule avant de publier un trajet"
   },
   "admin": {
     "dashboard": "Tableau de bord admin",
@@ -146,7 +153,22 @@
     "totalReports": "Total signalements",
     "banned": "Banni",
     "banUser": "Bannir",
-    "unbanUser": "Débannir"
+    "unbanUser": "Débannir",
+    "cities": "Villes",
+    "addCity": "Ajouter une ville",
+    "editCity": "Modifier",
+    "noCities": "Aucune ville",
+    "cityNameAr": "Nom en arabe",
+    "cityNameFr": "Nom en français",
+    "cityNameEn": "Nom en anglais (optionnel)",
+    "reports": "Signalements",
+    "reviews": "Avis",
+    "reporter": "Signaleur",
+    "reviewer": "Évaluateur",
+    "reviewee": "Évalué",
+    "deleteReport": "Supprimer le signalement",
+    "noReports": "Aucun signalement",
+    "noReviews": "Aucun avis"
   },
   "common": {
     "loading": "Chargement...",

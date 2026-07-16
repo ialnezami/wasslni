@@ -195,7 +195,13 @@
     "noVehicles": "لم تضف أي مركبة بعد",
     "noVehiclesHint": "يجب إضافة مركبة أولاً قبل نشر رحلة",
     "addVehicle": "إضافة مركبة",
-    "selectVehicle": "اختر مركبة"
+    "selectVehicle": "اختر مركبة",
+    "editRide": "تعديل الرحلة",
+    "editRideBlocked": "لا يمكن تعديل الرحلة — يوجد ركاب بحجوزات مؤكدة",
+    "cancelRide": "إلغاء الرحلة",
+    "cancelRideConfirm": "هل أنت متأكد من إلغاء هذه الرحلة؟",
+    "cancelReasonPlaceholder": "سبب الإلغاء (اختياري)",
+    "confirmCancel": "تأكيد الإلغاء"
   },
   "admin": {
     "dashboard": "لوحة الإدارة",
@@ -216,7 +222,14 @@
     "reviewee": "المُقيَّم",
     "deleteReport": "حذف البلاغ",
     "noReports": "لا توجد بلاغات",
-    "noReviews": "لا توجد تقييمات"
+    "noReviews": "لا توجد تقييمات",
+    "cities": "المدن",
+    "addCity": "إضافة مدينة",
+    "editCity": "تعديل",
+    "noCities": "لا توجد مدن",
+    "cityNameAr": "الاسم بالعربية",
+    "cityNameFr": "الاسم بالفرنسية",
+    "cityNameEn": "الاسم بالإنجليزية (اختياري)"
   },
   "common": {
     "loading": "جاري التحميل...",

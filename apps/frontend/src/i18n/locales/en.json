@@ -133,7 +133,14 @@
     "vehiclePlate": "Plate number",
     "noVehicles": "No vehicles added yet",
     "addVehicle": "Add vehicle",
-    "selectVehicle": "Select a vehicle"
+    "selectVehicle": "Select a vehicle",
+    "editRide": "Edit Ride",
+    "editRideBlocked": "Cannot edit — passengers have confirmed bookings",
+    "cancelRide": "Cancel Ride",
+    "cancelRideConfirm": "Are you sure you want to cancel this ride?",
+    "cancelReasonPlaceholder": "Cancellation reason (optional)",
+    "confirmCancel": "Confirm Cancellation",
+    "noVehiclesHint": "You must add a vehicle before publishing a ride"
   },
   "admin": {
     "dashboard": "Admin dashboard",
@@ -146,7 +153,22 @@
     "totalReports": "Total reports",
     "banned": "Banned",
     "banUser": "Ban user",
-    "unbanUser": "Unban user"
+    "unbanUser": "Unban user",
+    "cities": "Cities",
+    "addCity": "Add City",
+    "editCity": "Edit",
+    "noCities": "No cities yet",
+    "cityNameAr": "Arabic Name",
+    "cityNameFr": "French Name",
+    "cityNameEn": "English Name (optional)",
+    "reports": "Reports",
+    "reviews": "Reviews",
+    "reporter": "Reporter",
+    "reviewer": "Reviewer",
+    "reviewee": "Reviewee",
+    "deleteReport": "Delete Report",
+    "noReports": "No reports",
+    "noReviews": "No reviews"
   },
   "common": {
     "loading": "Loading...",
