@@ -1,3 +1,17 @@
+import {
+  LayoutDashboard,
+  Car,
+  PlusCircle,
+  ClipboardList,
+  Ticket,
+  Truck,
+  MessageCircle,
+  Bell,
+  UserCircle,
+  Star,
+  Search,
+  Home,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { DashboardLayout } from './DashboardLayout';
 
@@ -5,18 +19,18 @@ export function UserLayout() {
   const { t } = useTranslation();
 
   const links = [
-    { to: '/app', label: t('nav.dashboard') },
-    { to: '/app/my-rides', label: t('user.myRides') },
-    { to: '/app/create-ride', label: t('user.createRide') },
-    { to: '/app/booking-requests', label: t('user.bookingRequests') },
-    { to: '/app/bookings', label: t('user.myBookings') },
-    { to: '/app/vehicles', label: t('user.vehicles') },
-    { to: '/app/chats', label: t('chat.inbox') },
-    { to: '/app/notifications', label: t('user.notifications') },
-    { to: '/app/profile', label: t('user.profile') },
-    { to: '/app/reviews', label: t('user.reviews') },
-    { to: '/search', label: t('nav.search'), dividerBefore: true },
-    { to: '/', label: t('nav.home') },
+    { to: '/app', label: t('nav.dashboard'), icon: LayoutDashboard, bottomNav: true },
+    { to: '/app/my-rides', label: t('user.myRides'), icon: Car },
+    { to: '/app/create-ride', label: t('user.createRide'), icon: PlusCircle },
+    { to: '/app/booking-requests', label: t('user.bookingRequests'), icon: ClipboardList },
+    { to: '/app/bookings', label: t('user.myBookings'), icon: Ticket, bottomNav: true },
+    { to: '/app/vehicles', label: t('user.vehicles'), icon: Truck },
+    { to: '/app/chats', label: t('chat.inbox'), icon: MessageCircle, bottomNav: true },
+    { to: '/app/notifications', label: t('user.notifications'), icon: Bell },
+    { to: '/app/profile', label: t('user.profile'), icon: UserCircle, bottomNav: true },
+    { to: '/app/reviews', label: t('user.reviews'), icon: Star },
+    { to: '/search', label: t('nav.search'), icon: Search, dividerBefore: true, bottomNav: true },
+    { to: '/', label: t('nav.home'), icon: Home },
   ];
 
   return <DashboardLayout title={t('app.name')} links={links} />;
