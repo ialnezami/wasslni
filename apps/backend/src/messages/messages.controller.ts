@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import type { AuthUser } from '@wasslni/shared-types';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
@@ -16,6 +16,14 @@ export class MessagesController {
   @Get('conversations')
   getConversations(@CurrentUser() user: AuthUser) {
     return this.messagesService.getConversations(user.userId);
+  }
+
+  @Post(':bookingId/read')
+  markAllRead(
+    @Param('bookingId', ParseMongoIdPipe) bookingId: string,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.messagesService.markAllRead(bookingId, user.userId);
   }
 
   @Get(':bookingId')

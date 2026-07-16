@@ -20,6 +20,7 @@ export interface Conversation {
     destinationCity: CityRef | null;
   };
   lastMessage: { text: string; senderId: string; createdAt: string } | null;
+  unreadCount: number;
   createdAt: string;
 }
 
@@ -28,4 +29,6 @@ export const messagesApi = {
     apiClient.get<Message[]>(`/messages/${bookingId}`),
   getConversations: () =>
     apiClient.get<Conversation[]>('/messages/conversations'),
+  markAllRead: (bookingId: string) =>
+    apiClient.post(`/messages/${bookingId}/read`),
 };

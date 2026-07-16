@@ -12,11 +12,21 @@ export interface NavLink {
   icon?: ComponentType<{ className?: string }>;
   dividerBefore?: boolean;
   bottomNav?: boolean;
+  badge?: number;
 }
 
 interface DashboardLayoutProps {
   title: string;
   links: NavLink[];
+}
+
+function BadgeDot({ count }: { count: number }) {
+  if (count <= 0) return null;
+  return (
+    <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold leading-none text-white">
+      {count > 99 ? '99+' : count}
+    </span>
+  );
 }
 
 export function DashboardLayout({ title, links }: DashboardLayoutProps) {
@@ -78,8 +88,14 @@ export function DashboardLayout({ title, links }: DashboardLayoutProps) {
                           : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800',
                       )}
                     >
-                      {Icon && <Icon className="h-4 w-4 shrink-0" />}
-                      {link.label}
+                      <span className="relative shrink-0">
+                        {Icon && <Icon className="h-4 w-4" />}
+                        {(link.badge ?? 0) > 0 && (
+                          <span className="absolute -top-1 -end-1.5 flex h-2 w-2 rounded-full bg-red-500" />
+                        )}
+                      </span>
+                      <span className="flex-1">{link.label}</span>
+                      <BadgeDot count={link.badge ?? 0} />
                     </Link>
                   </div>
                 );
@@ -112,14 +128,19 @@ export function DashboardLayout({ title, links }: DashboardLayoutProps) {
                       : 'text-slate-500 dark:text-slate-400',
                   )}
                 >
-                  {Icon && (
-                    <Icon
-                      className={cn(
-                        'h-5 w-5',
-                        active && 'text-emerald-600 dark:text-emerald-400',
-                      )}
-                    />
-                  )}
+                  <span className="relative">
+                    {Icon && (
+                      <Icon
+                        className={cn(
+                          'h-5 w-5',
+                          active && 'text-emerald-600 dark:text-emerald-400',
+                        )}
+                      />
+                    )}
+                    {(link.badge ?? 0) > 0 && (
+                      <span className="absolute -top-0.5 -end-0.5 flex h-2 w-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-slate-900" />
+                    )}
+                  </span>
                   <span>{link.label}</span>
                 </Link>
               );

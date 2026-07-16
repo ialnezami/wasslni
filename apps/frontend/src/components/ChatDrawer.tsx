@@ -1,8 +1,10 @@
-// apps/frontend/src/components/ChatDrawer.tsx
 import { useRef, useEffect, useState } from 'react';
+import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/store/auth.store';
 import { useChat } from '@/hooks/useChat';
+import { useUnreadStore } from '@/store/unread.store';
+import { messagesApi } from '@/api/messages';
 import { Button } from '@wasslni/shared-ui';
 import { Spinner } from '@/components/ui';
 
@@ -16,8 +18,15 @@ export function ChatDrawer({ bookingId, otherPartyName, onClose }: ChatDrawerPro
   const { t } = useTranslation();
   const { user } = useAuthStore();
   const { messages, isLoading, error, send } = useChat(bookingId);
+  const clearUnread = useUnreadStore((s) => s.clear);
   const [text, setText] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  // Mark messages read when drawer opens and when new messages arrive
+  useEffect(() => {
+    messagesApi.markAllRead(bookingId).catch(() => {/* best-effort */});
+    clearUnread(bookingId);
+  }, [bookingId, messages.length, clearUnread]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -34,15 +43,15 @@ export function ChatDrawer({ bookingId, otherPartyName, onClose }: ChatDrawerPro
     <>
       <div className="fixed inset-0 z-40 bg-black/30" onClick={onClose} />
 
-      <div className="fixed inset-y-0 end-0 z-50 flex w-full max-w-sm flex-col bg-white shadow-xl">
-        <div className="flex items-center justify-between border-b px-4 py-3">
-          <h2 className="font-semibold text-slate-900">{otherPartyName}</h2>
+      <div className="fixed inset-y-0 end-0 z-50 flex w-full max-w-sm flex-col bg-white shadow-xl dark:bg-slate-900">
+        <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-700">
+          <h2 className="font-semibold text-slate-900 dark:text-slate-100">{otherPartyName}</h2>
           <button
             onClick={onClose}
-            className="rounded p-1 text-slate-500 hover:bg-slate-100 hover:text-slate-700"
+            className="flex h-8 w-8 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800"
             aria-label="close"
           >
-            ✕
+            <X className="h-4 w-4" />
           </button>
         </div>
 
@@ -53,7 +62,7 @@ export function ChatDrawer({ bookingId, otherPartyName, onClose }: ChatDrawerPro
             </div>
           )}
           {!isLoading && messages.length === 0 && !error && (
-            <p className="py-8 text-center text-sm text-slate-400">
+            <p className="py-8 text-center text-sm text-slate-400 dark:text-slate-500">
               {t('chat.empty')}
             </p>
           )}
@@ -65,23 +74,16 @@ export function ChatDrawer({ bookingId, otherPartyName, onClose }: ChatDrawerPro
           {messages.map((msg) => {
             const isOwn = msg.senderId === user?.userId;
             return (
-              <div
-                key={msg._id}
-                className={`flex ${isOwn ? 'justify-end' : 'justify-start'}`}
-              >
+              <div key={msg._id} className={`flex ${isOwn ? 'justify-end' : 'justify-start'}`}>
                 <div
                   className={`max-w-[75%] rounded-2xl px-3 py-2 text-sm ${
                     isOwn
                       ? 'bg-emerald-600 text-white'
-                      : 'bg-slate-100 text-slate-900'
+                      : 'bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100'
                   }`}
                 >
                   <p>{msg.text}</p>
-                  <p
-                    className={`mt-1 text-[10px] ${
-                      isOwn ? 'text-emerald-200' : 'text-slate-400'
-                    }`}
-                  >
+                  <p className={`mt-1 text-[10px] ${isOwn ? 'text-emerald-200' : 'text-slate-400 dark:text-slate-500'}`}>
                     {new Date(msg.createdAt).toLocaleTimeString('ar', {
                       hour: '2-digit',
                       minute: '2-digit',
@@ -94,14 +96,14 @@ export function ChatDrawer({ bookingId, otherPartyName, onClose }: ChatDrawerPro
           <div ref={bottomRef} />
         </div>
 
-        <div className="flex gap-2 border-t px-4 py-3">
+        <div className="flex gap-2 border-t border-slate-200 px-4 py-3 dark:border-slate-700">
           <input
             type="text"
             value={text}
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder={t('chat.placeholder')}
-            className="flex-1 rounded-full border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="flex-1 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
           />
           <Button onClick={handleSend} disabled={!text.trim()}>
             {t('chat.send')}

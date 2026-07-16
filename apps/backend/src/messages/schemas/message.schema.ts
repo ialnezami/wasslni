@@ -12,7 +12,11 @@ export class Message extends BaseDocument {
 
   @Prop({ required: true, maxlength: 1000 })
   text!: string;
+
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }], default: [] })
+  readBy!: Types.ObjectId[];
 }
 
 export const MessageSchema = SchemaFactory.createForClass(Message);
 MessageSchema.index({ bookingId: 1, createdAt: 1 });
+MessageSchema.index({ bookingId: 1, senderId: 1, readBy: 1 });

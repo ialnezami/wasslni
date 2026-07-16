@@ -1,4 +1,3 @@
-// apps/backend/src/messages/chat.gateway.ts
 import {
   ConnectedSocket,
   MessageBody,
@@ -11,10 +10,9 @@ import { Server, Socket } from 'socket.io';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { plainToInstance } from 'class-transformer';
-import { validate } from 'class-validator';
+import { validate, IsMongoId } from 'class-validator';
 import { MessagesService } from './messages.service';
 import { SendMessageDto } from './dto/message.dto';
-import { IsMongoId } from 'class-validator';
 
 class JoinBookingDto {
   @IsMongoId()
@@ -40,6 +38,8 @@ export class ChatGateway implements OnGatewayConnection {
         secret: this.configService.get<string>('app.jwt.accessSecret'),
       });
       socket.data.userId = payload.sub;
+      // Auto-join personal room so the user receives notifications even when no booking drawer is open
+      await socket.join(`user-${payload.sub}`);
     } catch {
       socket.emit('error', { message: 'Unauthorized' });
       socket.disconnect();
@@ -86,18 +86,28 @@ export class ChatGateway implements OnGatewayConnection {
         socket.emit('error', { message: 'Join the booking room first' });
         return;
       }
-      const message = await this.messagesService.createMessage(
-        dto.bookingId,
-        socket.data.userId as string,
-        dto.text,
-      );
-      this.server.to(`booking-${dto.bookingId}`).emit('new-message', {
+
+      const senderId = socket.data.userId as string;
+      const message = await this.messagesService.createMessage(dto.bookingId, senderId, dto.text);
+
+      const messagePayload = {
         _id: String(message._id),
         bookingId: dto.bookingId,
-        senderId: socket.data.userId as string,
+        senderId,
         text: message.text,
         createdAt: (message as unknown as { createdAt: Date }).createdAt,
-      });
+      };
+
+      // Broadcast to all participants in the booking room (including sender)
+      this.server.to(`booking-${dto.bookingId}`).emit('new-message', messagePayload);
+
+      // Notify the recipient via their personal room so they get a badge even when drawer is closed
+      const recipientId = await this.messagesService.getOtherParticipant(dto.bookingId, senderId);
+      if (recipientId) {
+        this.server
+          .to(`user-${recipientId}`)
+          .emit('new-message-notification', { bookingId: dto.bookingId, message: messagePayload });
+      }
     } catch (err: unknown) {
       socket.emit('error', {
         message: err instanceof Error ? err.message : 'Failed to send message',
