@@ -53,4 +53,11 @@ export class RidesRepository {
       .find({ recurringTripId, date: { $gt: afterDate }, status: { $in: [RideStatus.Scheduled, RideStatus.Full] }, deletedAt: null })
       .exec();
   }
+
+  findCompletedBefore(cutoff: Date) {
+    return this.rideModel
+      .find({ status: RideStatus.Completed, updatedAt: { $lt: cutoff }, deletedAt: null }, { _id: 1 })
+      .lean()
+      .exec();
+  }
 }

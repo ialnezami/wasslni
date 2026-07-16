@@ -8,6 +8,7 @@ import { MessagesRepository } from './repositories/messages.repository';
 import { MessagesService } from './messages.service';
 import { MessagesController } from './messages.controller';
 import { ChatGateway } from './chat.gateway';
+import { ChatCleanupService } from './chat-cleanup.service';
 import { BookingsModule } from '../bookings/bookings.module';
 import { RidesModule } from '../rides/rides.module';
 
@@ -25,6 +26,6 @@ import { RidesModule } from '../rides/rides.module';
     RidesModule,
   ],
   controllers: [MessagesController],
-  providers: [MessagesService, MessagesRepository, ChatGateway],
+  providers: [MessagesService, MessagesRepository, ChatGateway, ChatCleanupService],
 })
 export class MessagesModule {}

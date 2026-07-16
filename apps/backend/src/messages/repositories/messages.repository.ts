@@ -56,6 +56,15 @@ export class MessagesRepository {
     ]);
   }
 
+  softDeleteByBookingIds(bookingIds: string[]) {
+    if (bookingIds.length === 0) return Promise.resolve({ modifiedCount: 0 });
+    const idOids = bookingIds.map((id) => new Types.ObjectId(id));
+    return this.messageModel.updateMany(
+      { bookingId: { $in: [...bookingIds, ...idOids] }, deletedAt: null },
+      { deletedAt: new Date() },
+    ).exec();
+  }
+
   countUnreadByBookingIds(bookingIds: Types.ObjectId[], userId: string) {
     if (bookingIds.length === 0) return Promise.resolve([]);
     const uid = new Types.ObjectId(userId);
