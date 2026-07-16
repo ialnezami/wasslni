@@ -5,6 +5,7 @@ import { AdminLayout } from '@/layouts/AdminLayout';
 import { UserLayout } from '@/layouts/UserLayout';
 import { ProtectedRoute } from '@/routes/ProtectedRoute';
 import { DashboardRedirect } from '@/routes/DashboardRedirect';
+import { useAuthStore } from '@/store/auth.store';
 import { HomePage } from '@/pages/public/HomePage';
 import { SearchPage } from '@/pages/public/SearchPage';
 import { RideDetailsPage } from '@/pages/public/RideDetailsPage';
@@ -28,12 +29,18 @@ import { AdminReviewsPage } from '@/pages/admin/AdminReviewsPage';
 import { PlaceholderPage } from '@/pages/PlaceholderPage';
 import { ChatsPage } from '@/pages/ChatsPage';
 
+function HomeOrApp() {
+  const user = useAuthStore((s) => s.user);
+  if (user) return <Navigate to="/app" replace />;
+  return <HomePage />;
+}
+
 export function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<PublicLayout />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<HomeOrApp />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="rides/:id" element={<RideDetailsPage />} />
           <Route path="login" element={<LoginPage />} />
